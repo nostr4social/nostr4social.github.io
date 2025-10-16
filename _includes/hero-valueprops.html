@@ -1,0 +1,392 @@
+<!-- valueprops Navigation -->
+<nav class="valueprops-nav">
+    <ul class="valueprops-nav__list">
+        {% for valueprop in site.data.valueprops %}
+        <li class="valueprops-nav__item">
+            <a href="#{{ valueprop.anchor }}" class="valueprops-nav__link" data-anchor="{{ valueprop.anchor }}" title="{{ valueprop.title }}">
+                <i class="fa fa-classic {{ valueprop.icon }}"></i>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
+
+{% for valueprop in site.data.valueprops %}
+<div class="hero hero--overlay valueprop-hero snapscroll" id="{{ valueprop.anchor }}" data-bg-image="{{ valueprop.image | relative_url }}" style="background-image: url('{{ valueprop.image | relative_url }}'); background-attachment: fixed; background-size: cover; background-position: center center; padding-top:6rem;">
+    
+    <div class="valueprop-hero__wrapper wrapper">
+        
+        <!-- Hero Top Section -->
+        <div class="valueprop-hero__top">
+            <div class="valueprop-hero__logo">
+                <img src="{{ 'assets/images/nostr4-logobird-color2.png' | relative_url }}" alt="Nostr4 Logo">
+            </div>
+            
+            <div class="valueprop-hero__header">
+              <h2 class="valueprop-hero__tagline">Free Your App</h2>
+              <h2 class="valueprop-hero__title">{{ valueprop.title }}</h2>
+                   <!-- Read More Button -->
+              <div class="valueprop-hero__read-more">
+                <button class="valueprop-hero__read-more-btn">
+                    <span>Read More</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+              </div>
+            </div>
+
+        </div>
+        
+ 
+        
+        <!-- Problem Carousel -->
+        {% if valueprop.problem %}
+        <div class="valueprop-hero__carousel valueprop-hero__carousel--problem">
+          <div class="valueprop-hero__carousel-nav">
+            <div class="spacer"></div>
+            <div class="valueprop-hero__toggle-buttons">
+                <button class="valueprop-hero__toggle-btn valueprop-hero__toggle-btn--problem active">
+                    <span>The Legacy Problem</span>
+                </button>
+                {% if valueprop.solution %}
+                <button class="valueprop-hero__toggle-btn valueprop-hero__toggle-btn--solution">
+                    <span>The Nostr Solution</span>
+                </button>
+                {% endif %}
+            </div>
+            
+            <button class="valueprop-hero__nav-btn valueprop-hero__nav-btn--close">
+                <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <div class="valueprop-hero__carousel-content">
+            <!-- <div class="valueprop-hero__section-title">
+                <h3 class="valueprop-hero__section-title-text">The Legacy Problem</h3>
+            </div> -->
+            
+            <!-- Summary -->
+            <p class="valueprop-hero__summary">{{ valueprop.problem.summary | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+            
+            <!-- Points -->
+            {% if valueprop.problem.points %}
+            <div class="valueprop-hero__points">
+              {% for point in valueprop.problem.points %}
+              <div class="valueprop-hero__point-slide">
+                <span class="icon-stack icon-badge">
+                  <i class="fa-solid {{ valueprop.icon }} icon"></i>
+                  <i class="fa-solid fa-circle-xmark badge"></i>
+                </span>
+                <p>{{ point | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          
+        </div>
+        {% endif %}
+        
+        <!-- Solution Carousel -->
+        {% if valueprop.solution %}
+        <div class="valueprop-hero__carousel valueprop-hero__carousel--solution">
+          <div class="valueprop-hero__carousel-nav">
+            <div class="spacer"></div>
+            <div class="valueprop-hero__toggle-buttons">
+                {% if valueprop.problem %}
+                <button class="valueprop-hero__toggle-btn valueprop-hero__toggle-btn--problem">
+                    <span>The Legacy Problem</span>
+                </button>
+                {% endif %}
+                <button class="valueprop-hero__toggle-btn valueprop-hero__toggle-btn--solution active">
+                    <span>The Nostr Solution</span>
+                </button>
+            </div>
+            
+            <button class="valueprop-hero__nav-btn valueprop-hero__nav-btn--close">
+                <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <div class="valueprop-hero__carousel-content">
+            <!-- <div class="valueprop-hero__section-title">
+                <h3 class="valueprop-hero__section-title-text">The Nostr Solution</h3>
+            </div> -->
+            
+            <!-- Summary -->
+            <p class="valueprop-hero__summary">{{ valueprop.solution.summary | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+            
+            <!-- Points -->
+            {% if valueprop.solution.points %}
+            <div class="valueprop-hero__points">
+              {% for point in valueprop.solution.points %}
+              <div class="valueprop-hero__point-slide">
+                <span class="icon-stack icon-badge">
+                  <i class="fa-solid {{ valueprop.icon }} icon"></i>
+                  <i class="fa-solid fa-circle-check badge"></i>
+                </span>
+                <p>{{ point | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+            
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endfor %}
+
+<script>
+$(document).ready(function() {
+    var $window = $(window);
+    var $valuepropsHeros = $('.valueprop-hero');
+    var $navLinks = $('.valueprops-nav__link');
+    
+    // ===== NAVIGATION & SCROLL MANAGEMENT =====
+    
+    function updateActiveNav() {
+        var scrollTop = $window.scrollTop();
+        var windowHeight = $window.height();
+        var viewportMiddle = scrollTop + (windowHeight / 2);
+        
+        var activeHero = null;
+        var isInvaluepropsSection = false;
+        
+        var firstHero = $valuepropsHeros.first();
+        var lastHero = $valuepropsHeros.last();
+        var firstHeroTop = firstHero.offset().top;
+        var lastHeroBottom = lastHero.offset().top + lastHero.outerHeight();
+        
+        if (viewportMiddle >= firstHeroTop && viewportMiddle <= lastHeroBottom) {
+            isInvaluepropsSection = true;
+        }
+        
+        var $valuepropsNav = $('.valueprops-nav');
+        if (isInvaluepropsSection) {
+            $valuepropsNav.fadeIn(300);
+        } else {
+            $valuepropsNav.fadeOut(300);
+        }
+        
+        $valuepropsHeros.each(function() {
+            var $hero = $(this);
+            var heroTop = $hero.offset().top;
+            var heroBottom = heroTop + $hero.outerHeight();
+            
+            if (viewportMiddle >= heroTop && viewportMiddle <= heroBottom) {
+                activeHero = $hero.attr('id');
+                return false;
+            }
+        });
+        
+        $navLinks.removeClass('active');
+        if (activeHero) {
+            $navLinks.filter('[data-anchor="' + activeHero + '"]').addClass('active');
+        }
+    }
+    
+    $navLinks.on('click', function(e) {
+        e.preventDefault();
+        var anchor = $(this).data('anchor');
+        var $target = $('#' + anchor);
+        
+        if ($target.length) {
+            $('html, body').animate({
+                scrollTop: $target.offset().top
+            }, 600);
+        }
+    });
+    
+    var ticking = false;
+    $window.on('scroll resize', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                updateActiveNav();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    updateActiveNav();
+    
+    // ===== CAROUSEL FUNCTIONALITY =====
+    
+    $valuepropsHeros.each(function() {
+        var $hero = $(this);
+        var $readMoreBtn = $hero.find('.valueprop-hero__read-more-btn');
+        var $readMoreSection = $hero.find('.valueprop-hero__read-more');
+        var $heroTop = $hero.find('.valueprop-hero__top');
+        var $problemCarousel = $hero.find('.valueprop-hero__carousel--problem');
+        var $solutionCarousel = $hero.find('.valueprop-hero__carousel--solution');
+        
+        // State: 'hero-top', 'problem', 'solution'
+        var currentState = 'hero-top';
+        var problemSlide = 0;
+        var solutionSlide = 0;
+        
+        // Get total slides for each carousel
+        var problemTotal = $problemCarousel.find('.valueprop-hero__slide').length;
+        var solutionTotal = $solutionCarousel.find('.valueprop-hero__slide').length;
+        
+        // Helper: Show carousel
+        function showCarousel($carousel) {
+            $carousel.addClass('is-visible');
+            $heroTop.addClass('is-compact');
+            $readMoreSection.addClass('is-hidden');
+        }
+        
+        // Helper: Hide carousel
+        function hideCarousel($carousel) {
+            $carousel.removeClass('is-visible');
+        }
+        
+        // Helper: Update slide display
+        function updateSlides($carousel, slideIndex) {
+            $carousel.find('.valueprop-hero__slide').removeClass('valueprop-hero__slide--active');
+            $carousel.find('.valueprop-hero__slide[data-slide="' + slideIndex + '"]').addClass('valueprop-hero__slide--active');
+            
+            var $current = $carousel.find('.valueprop-hero__progress-current');
+            $current.text(slideIndex + 1);
+        }
+        
+        // Helper: Reset to hero top
+        function resetToHeroTop() {
+            currentState = 'hero-top';
+            problemSlide = 0;
+            solutionSlide = 0;
+            hideCarousel($problemCarousel);
+            hideCarousel($solutionCarousel);
+            $heroTop.removeClass('is-compact');
+            $readMoreSection.removeClass('is-hidden');
+            updateSlides($problemCarousel, 0);
+            updateSlides($solutionCarousel, 0);
+        }
+        
+        // Read More button
+        $readMoreBtn.on('click', function() {
+            currentState = 'problem';
+            problemSlide = 0;
+            showCarousel($problemCarousel);
+            updateSlides($problemCarousel, problemSlide);
+        });
+        
+        // Problem carousel navigation
+        $problemCarousel.find('.valueprop-hero__nav-btn--back').on('click', function() {
+            if (problemSlide === 0) {
+                // Back to hero top
+                resetToHeroTop();
+            } else {
+                // Previous slide
+                problemSlide--;
+                updateSlides($problemCarousel, problemSlide);
+            }
+        });
+        
+        $problemCarousel.find('.valueprop-hero__nav-btn--next').on('click', function() {
+            if (problemSlide < problemTotal - 1) {
+                // Next slide
+                problemSlide++;
+                updateSlides($problemCarousel, problemSlide);
+            } else {
+                // Go to solution carousel
+                currentState = 'solution';
+                solutionSlide = 0;
+                hideCarousel($problemCarousel);
+                showCarousel($solutionCarousel);
+                updateSlides($solutionCarousel, solutionSlide);
+                
+                // Update toggle button states
+                $problemCarousel.find('.valueprop-hero__toggle-btn').removeClass('active');
+                $solutionCarousel.find('.valueprop-hero__toggle-btn--solution').addClass('active');
+            }
+        });
+        
+        // Toggle buttons - Problem carousel
+        $problemCarousel.find('.valueprop-hero__toggle-btn--solution').on('click', function() {
+            // Jump to solution carousel
+            currentState = 'solution';
+            solutionSlide = 0;
+            hideCarousel($problemCarousel);
+            showCarousel($solutionCarousel);
+            updateSlides($solutionCarousel, solutionSlide);
+            
+            // Update toggle button states
+            $problemCarousel.find('.valueprop-hero__toggle-btn').removeClass('active');
+            $solutionCarousel.find('.valueprop-hero__toggle-btn--solution').addClass('active');
+        });
+        
+        // Solution carousel navigation
+        $solutionCarousel.find('.valueprop-hero__nav-btn--back').on('click', function() {
+            if (solutionSlide === 0) {
+                // Back to problem carousel
+                currentState = 'problem';
+                problemSlide = 0;
+                hideCarousel($solutionCarousel);
+                showCarousel($problemCarousel);
+                updateSlides($problemCarousel, problemSlide);
+                
+                // Update toggle button states
+                $solutionCarousel.find('.valueprop-hero__toggle-btn').removeClass('active');
+                $problemCarousel.find('.valueprop-hero__toggle-btn--problem').addClass('active');
+            } else {
+                // Previous slide
+                solutionSlide--;
+                updateSlides($solutionCarousel, solutionSlide);
+            }
+        });
+        
+        $solutionCarousel.find('.valueprop-hero__nav-btn--next').on('click', function() {
+            if (solutionSlide < solutionTotal - 1) {
+                // Next slide
+                solutionSlide++;
+                updateSlides($solutionCarousel, solutionSlide);
+            } else {
+                // At last slide - reset current hero and scroll to next valueprop hero
+                var $nextHero = $hero.next('.valueprop-hero');
+                
+                if ($nextHero.length) {
+                    // Reset current hero
+                    resetToHeroTop();
+                    
+                    // Small delay to let reset animation complete, then scroll
+                    setTimeout(function() {
+                        $('html, body').animate({
+                            scrollTop: $nextHero.offset().top
+                        }, 800);
+                    }, 300);
+                } else {
+                    // No next hero, just reset
+                    resetToHeroTop();
+                }
+            }
+        });
+        
+        // Toggle buttons - Solution carousel
+        $solutionCarousel.find('.valueprop-hero__toggle-btn--problem').on('click', function() {
+            // Jump to problem carousel
+            currentState = 'problem';
+            problemSlide = 0;
+            hideCarousel($solutionCarousel);
+            showCarousel($problemCarousel);
+            updateSlides($problemCarousel, problemSlide);
+            
+            // Update toggle button states
+            $solutionCarousel.find('.valueprop-hero__toggle-btn').removeClass('active');
+            $problemCarousel.find('.valueprop-hero__toggle-btn--problem').addClass('active');
+        });
+        
+        // Close buttons - reset to hero top
+        $problemCarousel.find('.valueprop-hero__nav-btn--close').on('click', function() {
+            resetToHeroTop();
+        });
+        
+        $solutionCarousel.find('.valueprop-hero__nav-btn--close').on('click', function() {
+            resetToHeroTop();
+        });
+    });
+});
+</script>

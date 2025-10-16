@@ -1,0 +1,377 @@
+---
+layout: page
+title: Remote Signer Demo
+permalink: /remote-signer/
+---
+
+<style>
+  .remote-signer { max-width: 900px; margin: 2rem auto; padding: 2rem; }
+  .card { border: 1px solid #ddd; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; background: rgba(0,0,0,0.05); }
+  .row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin: 0.5rem 0; }
+  input, textarea { width: 100%; padding: .5rem; border: 1px solid #ddd; border-radius: 4px; }
+  button { padding: .75rem 1.5rem; background: #7b16ff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  button:hover { background: #6a13e0; }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+  .mono { font-family: monospace; font-size: .9rem; background: rgba(0,0,0,0.1); padding: 0.5rem; border-radius: 4px; word-break: break-all; }
+  .status { font-weight: bold; color: #7b16ff; }
+  #logs { max-height: 300px; overflow-y: auto; }
+  #logs li { margin: 0.25rem 0; font-size: 0.85rem; }
+</style>
+
+<div class="remote-signer">
+  <h1>🔐 Nostr Remote Signer (nsec.app)</h1>
+  <p class="status">Status: <span id="status">Idle</span></p>
+
+  <div class="card">
+    <h2>1️⃣ Prepare Connection</h2>
+    <div class="row">
+      <label>App Name:</label>
+      <input type="text" id="app-name" value="Nostr4 Remote Signer Demo">
+    </div>
+    <div class="row">
+      <button onclick="prepareConnect()">Generate Client Key & Build Connection</button>
+    </div>
+    <div id="connect-output"></div>
+  </div>
+
+  <div class="card">
+    <h2>2️⃣ Create/Connect Account</h2>
+    <div class="row">
+      <label>Username:</label>
+      <input type="text" id="username" value="" oninput="validateUsername(this.value)" placeholder="Enter username">
+    </div>
+    <div id="username-validation" style="margin-top: 0.5rem; font-size: 0.9rem;"></div>
+    <div class="row">
+      <button id="create-btn" onclick="requestCreate()" disabled>Connect to nsec.app</button>
+    </div>
+    <div id="create-output"></div>
+  </div>
+
+  <div class="card">
+    <h2>3️⃣ Post a Note</h2>
+    <textarea id="note-content" rows="4" placeholder="Write your note here...">Hello from Nostr4 remote signer!</textarea>
+    <div class="row">
+      <button id="post-btn" onclick="postNote()" disabled>Post Note</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Logs</h2>
+    <ul id="logs" class="mono"></ul>
+  </div>
+</div>
+
+<script>
+// Use window.NostrTools (CDN library) and window.NostrTools.local (our custom functions)
+const NT = window.NostrTools; // CDN library
+const local = window.NostrTools.local; // Our custom functions
+
+// State variables
+let pool = null;
+let clientSk = null;
+let clientSkHex = '';
+let clientPubkeyHex = '';
+let remoteSignerPubkeyHex = '';
+let connectAcked = false;
+let nostrConnectUrl = '';
+let createdNpub = '';
+let clientSecret = '';
+
+const NSEC_APP_RELAYS = ['wss://relay.nsec.app'];
+const REQUESTED_PERMS = 'sign_event:1';
+const waiters = new Map();
+
+// Logging
+function log(...args) {
+  const msg = args.map(a => typeof a === 'string' ? a : JSON.stringify(a)).join(' ');
+  const li = document.createElement('li');
+  li.textContent = msg;
+  document.getElementById('logs').prepend(li);
+  console.log(...args);
+}
+
+function setStatus(msg) {
+  document.getElementById('status').textContent = msg;
+}
+
+// Helper: open popup
+function openPopup(url, title, w = 500, h = 700) {
+  const y = window.top.outerHeight / 2 + window.top.screenY - h / 2;
+  const x = window.top.outerWidth / 2 + window.top.screenX - w / 2;
+  return window.open(url, title, `width=${w},height=${h},left=${x},top=${y}`);
+}
+
+// Helper: bytes to hex (use from NostrTools if available, fallback to custom)
+function toHex(u8) {
+  if (NT.utils && NT.utils.bytesToHex) {
+    return NT.utils.bytesToHex(u8);
+  }
+  return Array.from(u8).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Username validation
+let validationTimeout = null;
+let lastValidatedUsername = '';
+let isUsernameValid = false;
+
+async function validateUsername(username) {
+  const validationEl = document.getElementById('username-validation');
+  
+  // Clear previous timeout
+  if (validationTimeout) {
+    clearTimeout(validationTimeout);
+  }
+  
+  // Reset validation state
+  isUsernameValid = false;
+  
+  // Basic validation
+  if (!username || username.length < 3) {
+    validationEl.innerHTML = '<span style="color: #999;">Username must be at least 3 characters</span>';
+    return;
+  }
+  
+  // Check format (alphanumeric, underscore, hyphen)
+  if (!/^[a-z0-9_-]+$/i.test(username)) {
+    validationEl.innerHTML = '<span style="color: #f44336;">Username can only contain letters, numbers, underscore, and hyphen</span>';
+    return;
+  }
+  
+  // Show checking state
+  validationEl.innerHTML = '<span style="color: #999;">⏳ Checking availability...</span>';
+  
+  // Debounce the API check
+  validationTimeout = setTimeout(async () => {
+    try {
+      // Check NIP-05 availability at nsec.app
+      const nip05Address = `${username}@nsec.app`;
+      const response = await fetch(`https://nsec.app/.well-known/nostr.json?name=${encodeURIComponent(username)}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        // If username exists in response, it's taken
+        if (data.names && data.names[username]) {
+          validationEl.innerHTML = '<span style="color: #f44336;">❌ Username is already taken</span>';
+          isUsernameValid = false;
+        } else {
+          // Username not found = available
+          validationEl.innerHTML = '<span style="color: #4caf50;">✅ Username is available!</span>';
+          isUsernameValid = true;
+          lastValidatedUsername = username;
+        }
+      } else if (response.status === 404) {
+        // 404 means username doesn't exist = available
+        validationEl.innerHTML = '<span style="color: #4caf50;">✅ Username is available!</span>';
+        isUsernameValid = true;
+        lastValidatedUsername = username;
+      } else {
+        validationEl.innerHTML = '<span style="color: #ff9800;">⚠️ Could not verify availability</span>';
+      }
+    } catch (error) {
+      log('Username validation error:', error.message);
+      validationEl.innerHTML = '<span style="color: #ff9800;">⚠️ Could not verify availability</span>';
+    }
+  }, 500); // Wait 500ms after user stops typing
+}
+
+// Step 1: Prepare connection
+function prepareConnect() {
+  const sk = window.crypto.getRandomValues(new Uint8Array(32));
+  clientSk = sk;
+  clientSkHex = toHex(sk);
+  clientPubkeyHex = NT.getPublicKey(sk);
+  clientSecret = Math.random().toString(36).slice(2, 10);
+  
+  const appName = document.getElementById('app-name').value;
+  
+  // Build nostrconnect URI manually (NIP-46 format)
+  // Format: nostrconnect://<pubkey>?relay=<relay>&secret=<secret>&metadata=<metadata>
+  const metadata = encodeURIComponent(JSON.stringify({ name: appName }));
+  const relayParam = NSEC_APP_RELAYS.map(r => `relay=${encodeURIComponent(r)}`).join('&');
+  
+  nostrConnectUrl = `nostrconnect://${clientPubkeyHex}?${relayParam}&secret=${clientSecret}&metadata=${metadata}&perms=${encodeURIComponent(REQUESTED_PERMS)}&url=${encodeURIComponent(location.origin)}`;
+  
+  // Initialize pool and subscriptions
+  pool = new NT.SimplePool({ enablePing: true, enableReconnect: true });
+  startSubscriptions();
+  
+  // Update UI
+  document.getElementById('connect-output').innerHTML = `
+    <div class="mono" style="margin-top: 1rem;">${nostrConnectUrl}</div>
+    <div class="row" style="margin-top: 0.5rem;">
+      <button onclick="openPopup('${nostrConnectUrl}', 'Nsec.app')">Open in nsec.app</button>
+      <button onclick="copyToClipboard('${nostrConnectUrl}')">Copy URI</button>
+    </div>
+  `;
+  
+  document.getElementById('create-btn').disabled = false;
+  const suggestedUsername = 'user_' + Math.random().toString(36).slice(2, 8);
+  document.getElementById('username').value = suggestedUsername;
+  
+  // Trigger validation for suggested username
+  validateUsername(suggestedUsername);
+  
+  setStatus('Ready to connect');
+  log('Client pubkey:', NT.nip19.npubEncode(clientPubkeyHex));
+  log('nostrconnect URI generated');
+}
+
+// Subscribe to NIP-46 responses
+function startSubscriptions() {
+  if (!pool) return;
+  
+  const since = Math.floor(Date.now() / 1000) - 60;
+  pool.subscribeMany(
+    NSEC_APP_RELAYS,
+    [{ kinds: [24133], '#p': [clientPubkeyHex], since }],
+    {
+      async onevent(ev) {
+        try {
+          log('Received NIP-46 event from', ev.pubkey.slice(0, 8) + '...');
+          
+          // Decrypt with nip44
+          const payload = await NT.nip44.decrypt(clientSkHex, ev.pubkey, ev.content);
+          const data = JSON.parse(payload);
+          
+          // Handle connect ACK
+          if (!connectAcked && (data.result === clientSecret || data.method === 'connect')) {
+            remoteSignerPubkeyHex = ev.pubkey;
+            connectAcked = true;
+            log('✅ Connected to bunker:', NT.nip19.npubEncode(remoteSignerPubkeyHex));
+            setStatus('Connected to bunker');
+            document.getElementById('post-btn').disabled = false;
+            return;
+          }
+          
+          // Dispatch to RPC waiter
+          const waiter = data.id && waiters.get(data.id);
+          if (waiter) {
+            waiter({ result: data.result, error: data.error });
+            waiters.delete(data.id);
+          }
+        } catch (e) {
+          log('Decrypt/parse error:', e.message);
+        }
+      }
+    }
+  );
+}
+
+// RPC helper
+async function rpc(method, params) {
+  if (!pool || !remoteSignerPubkeyHex) throw new Error('Not connected');
+  
+  const id = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const req = { id, method, params };
+  const content = await NT.nip44.encrypt(clientSkHex, remoteSignerPubkeyHex, JSON.stringify(req));
+  
+  const ev = {
+    kind: 24133,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [['p', remoteSignerPubkeyHex]],
+    content
+  };
+  
+  const signed = NT.finalizeEvent(ev, clientSk);
+  const p = new Promise(resolve => waiters.set(id, resolve));
+  await pool.publish(NSEC_APP_RELAYS, signed);
+  return await p;
+}
+
+// Step 2: Create account
+async function requestCreate() {
+  if (!pool || !clientPubkeyHex) return;
+  
+  const username = document.getElementById('username').value;
+  
+  // Validate username before proceeding
+  if (!username || username.length < 3) {
+    setStatus('Please enter a valid username');
+    log('❌ Invalid username');
+    return;
+  }
+  
+  // Warn if username wasn't validated or is taken
+  if (!isUsernameValid || lastValidatedUsername !== username) {
+    const proceed = confirm(`Username "${username}" may not be available. Proceed anyway?`);
+    if (!proceed) {
+      setStatus('Cancelled');
+      return;
+    }
+  }
+  
+  setStatus('Opening nsec.app...');
+  const appNpub = NT.nip19.npubEncode(clientPubkeyHex);
+  const redirect = `https://use.nsec.app/create?token=${encodeURIComponent(nostrConnectUrl)}&appNpub=${encodeURIComponent(appNpub)}&name=${encodeURIComponent(username)}&perms=${encodeURIComponent(REQUESTED_PERMS)}`;
+  
+  log('Opening create page:', redirect);
+  openPopup(redirect, 'Create Nsec.app Account');
+  
+  // Wait for connect ACK
+  let tries = 0;
+  while (!connectAcked && tries++ < 120) {
+    await new Promise(ok => setTimeout(ok, 500));
+  }
+  
+  if (!connectAcked) {
+    setStatus('Connection timeout');
+    return;
+  }
+  
+  // Get public key
+  setStatus('Getting public key...');
+  const res = await rpc('get_public_key', []);
+  if (res.result && /^[0-9a-f]{64}$/i.test(res.result)) {
+    createdNpub = NT.nip19.npubEncode(res.result);
+    document.getElementById('create-output').innerHTML = `
+      <div class="mono" style="margin-top: 1rem;">Your npub: ${createdNpub}</div>
+    `;
+    setStatus('Account created and connected');
+    log('✅ Account created:', createdNpub);
+  } else {
+    setStatus('Failed to get public key');
+    log('Error:', res.error);
+  }
+}
+
+// Step 3: Post note
+async function postNote() {
+  setStatus('Requesting signature...');
+  
+  const content = document.getElementById('note-content').value;
+  
+  // Get user pubkey
+  const res = await rpc('get_public_key', []);
+  if (!res.result) {
+    setStatus('Failed to get pubkey');
+    return;
+  }
+  
+  const userHex = res.result;
+  const template = {
+    kind: 1,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [],
+    content,
+    pubkey: userHex
+  };
+  
+  // Request signature
+  const signRes = await rpc('sign_event', [JSON.stringify(template)]);
+  if (!signRes.result) {
+    setStatus('Sign failed: ' + signRes.error);
+    log('❌ Sign error:', signRes.error);
+    return;
+  }
+  
+  const signed = JSON.parse(signRes.result);
+  await pool.publish(NSEC_APP_RELAYS, signed);
+  setStatus('✅ Note posted!');
+  log('Posted event:', signed.id);
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => log('Copied to clipboard'));
+}
+</script>

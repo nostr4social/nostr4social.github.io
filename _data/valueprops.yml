@@ -1,0 +1,149 @@
+
+
+-
+  title: "Become Non-Custodial"
+  icon: "fa-heart"
+  class: "text-left"
+  anchor: "non-custodial"
+  image: "/assets/images/nostr4-bg-noncustodial.jpg"
+  problem:
+    summary: "Holding custody of user accounts and data is more of a **legal liability** than a profit model for independent apps."
+    points:
+      - "The primary target of Digital Privacy and ID Verification laws is apps that control user data and user accounts."
+      - "Smaller companies have fewer resources to handle and secure privately controlled user data in a legally compliant manner."
+      - "The emergence of big tech corporations making profit on user data has made it near impossible for independent apps to operate in any other way."
+      - "Until Nostr, simply NOT controlling user data (and reducing regulatory exposure) has not been a viable business model."
+
+  solution:
+    summary: "Nostr is the ONLY social protocol that allows apps to become FULLY non-custodial of user accounts and user data, and to *thrive because of it*!"
+    points:
+      - "On Nostr, apps can release custody of user accounts and user data, WITHOUT EVER losing access to them."
+      - "Regulatory exposure is greatly reduced, ALONG WITH the cost of compliance and secure data management."
+      - "For apps that DON'T control user data, the entire risk exposure from data loss, corruption, and database attacks is eliminated."
+      - "Simply by NOT controlling user data, apps are immunized from the anti-competitive practices of regulatory capture by big tech monopolies."
+      - "On Nostr, apps can afford to maximize their user-centered profit models BECAUSE these other risks are minimized."
+  cta:
+      text: "Learn How To Release Custody"
+      url: "#"
+
+
+-
+  title: "Access a Shared Social Layer"
+  icon: "fa-user"
+  class: "text-left"
+  anchor: "shared-social-layer"
+  image: "/assets/images/nostr4-bg-sociallayer.jpg"
+  problem:
+    summary: "Independent apps have a harder time reaching new users and driving deeper engagement, either because they **don't have access** to a shared social layer OR they **have to pay** big social for access to one."
+    points:
+      - "Apps with a private social layer require a LOT of development and maintenance of boilerplate code JUST for handling user data and user interactions."
+      - "Cold starting an app with a private social layer (and zero users) is a non-trivial and distinct problem for user recruitment and engagement."
+      - "Apps CAN benefit by having access to user data from other apps, but this is typically only possible via big social APIs."
+      - "Big social APIs, like Facebook and Twitter, have been shut down or restricted in the past, breaking thousands of apps overnight."
+  solution:
+    summary: "Nostr is *the social layer* for every app. It allows independent apps to access ALL of the users (and to request ANY of their data) from ANY other app on the network."
+    points:
+      - "No gatekeepers or platform restrictions. Nobody owns the Nostr protocol."
+      - "The network brings its own users. Cold starts are a thing of the past."
+      - "No need to DIY a private social layer. The responsibility for user data persistence and management is passed on to the relays."
+      - "It's impossible to be canceled or kicked off of Nostr.  Nobody owns the network."
+      - "The network discovers itself. Users can find your app as easily as finding their own friends."
+  cta:
+    text: "Learn How to Access the Social Layer"
+    url: "#social-layer"
+
+
+-
+  title: "Reduce Infrastructure Bloat"  
+  icon: "fa-server"
+  class: "text-left"
+  anchor: "reduced-infrastructure"
+  image: "/assets/images/nostr4-bg-infrastructure.jpg"
+  problem:
+    summary: "Traditional app backends require complex infrastructure and constant maintenance just to keep their data **secure and highly available** for end users."
+    points:
+      - "Multiple servers, databases, load balancers, and a full-time team of engineers are often required to keep everything running 24/7."
+      - "Security threats, data breaches, and unexpected traffic spikes add layers of complexity and risk."
+      - "Either hire professionals in-house or outsource these services from a cloud provider, but precious resources will still be diverted from your app's core value proposition."
+  solution:
+    summary: "Nostr's relay architecture eliminates the need for any app to manage its own cloud infrastructure. Every app has access to the entire network of user-specified *independently operated relays* by which all user data can be redundantly stored and reliably accessed with minimal latency."
+    points:
+      - "Greatly reduced infrastructure and cloud expenditure for your app."
+      - "Offload the risk and cost of data storage onto the relay network."
+      - "Update app functionality effortlessly without changing APIs or cloud services."
+      - "Have more resources available to build better apps for your users."
+  cta:
+    text: "Learn About Nostr's Relay Infrastructure"
+    url: "#"
+
+
+-
+  title: "Distribute Your Security Model"
+  icon: "fa-lock"
+  class: "text-left"
+  anchor: "decentralized-security"
+  image: "/assets/images/nostr4-bg-security.jpg"
+  problem:
+    summary: "Traditional apps, both large and small, run on private infrastructure, with **single points of failure** that can compromise millions of users."
+    points:
+      - "Centralized systems create honeypots for attackers - when they're breached, all user data is exposed."
+      - "The 2021 Facebook leak of 533 million users' personal information demonstrates how centralized architectures put both users and businesses at risk."
+  solution:
+    summary: "Nostr's decentralized approach to data storage and encryption eliminates single points of failure by *distributing user data* across a global network of *independently operated* relays, with access controlled by user-owned private keys."
+    points:
+      - "Distributed and redundant storage means data will never be lost."
+      - "Client-side encryption provided by user-owned private keys."
+      - "Zero reliance on any one company for security."
+  cta:
+    text: "Learn About Distributed Security"
+    url: "#"
+
+-
+  title: "Discover Webs of Trust"
+  icon: "fa-eye"
+  class: "text-left"
+  anchor: "webs-of-trust"
+  image: "/assets/images/nostr4-bg-websoftrust.jpg"
+  problem:
+    summary: "Moderating user-generated content is a thankless responsibility that many independent apps struggle to keep up with."
+    points:
+      - "From spam ratings and reviews to bad actors preying on your users, it can be difficult to stay ahead without an army of moderators and also criticism from affected users."
+      - "Centralized moderation teams struggle with scale, consistency, and accusations of bias."
+      - "The 2020s have shown how content decisions can spark intense controversy, with platforms caught between free speech concerns, regulatory pressures, and the mental health impact of harmful content."
+      - "This creates a no-win situation where no matter what decision is made, someone is left unhappy."
+  solution:
+    summary: "Nostr's Web of Trust engines offload content curation to the users while delivering higher quality protection and more personalized filtering than centralized moderation ever could."
+    points:
+      - "By analyzing each user's social connections (follows, likes, zaps, etc.), these decentralized algorithms calculate trust scores based on proximity to identify bots and bad actors on the network."
+      - "Modern versions allow each user to customize and share their own filters, turning decentralized content curation into an impenetrable barrier for spam and bad actors."
+      - "Quality content is more available across multiple cultures, at a fraction of the cost for apps, than with centralized moderation tools."
+  cta:
+    text: "Explore Decentralized Moderation"
+    url: "#moderation"
+
+
+-
+  title: "Monetize Without Borders"
+  icon: "fa-bolt"
+  class: "text-left"
+  anchor: "bitcoin"
+  image: "/assets/images/nostr4-bg-bitcoin.jpg"
+  problem:
+    summary: "Any 'in-app' transferring of funds from users **for services** OR to **other users** is a sensitive matter that requires third-party payment processors to handle liability and legal compliance."
+    points:
+      - "Most independent apps rely on third-party payment processors which can carry a 15–30% service fee depending on program and product."
+      - "iOS and Android generally require using their platform billing services or they charge twice the fee for apps using external services."
+      - "These fees and policy requirements materially reduce margins and can push teams toward higher scale or alternative monetization models."
+      - "Apps building their own payments infrastructure could potentially qualify as a money transmitter, which itself is complex and expensive."
+  solution:
+    summary: "Leveraging Bitcoin payments over the Lightning Network, Nostr's native Zap protocol enables users to *transfer funds directly* to anybody on the network, without the need for a payment processor."
+    points:
+      - "Low-fee, near-instant payments without card processors."
+      - "Lower liability by avoiding custody and payment processing."
+      - "Global by default; no bank rails or borders."
+      - "Flexible monetization options: tips, micropayments, paywalls, and P2P payouts."
+      - "Build direct relationships with your customers, free from platform restrictions."
+  cta:
+    text: "Build a Profitable App Business"
+    url: "#"
+

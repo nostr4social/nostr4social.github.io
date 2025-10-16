@@ -1,0 +1,12 @@
+# main links
+main:
+  - title: "What is"
+    url: "#nostr"
+    blank: false
+  - title: "the Value of Nostr?"
+    url: "#non-custodial"
+    blank: false
+  - title: "Contact Us"
+    url: "#contact"
+    blank: false
+

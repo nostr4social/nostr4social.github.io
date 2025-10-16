@@ -1,0 +1,2336 @@
+<!doctype html>
+<!--
+  OneFlow Jekyll Theme 1.1 by Per Starke
+  Copyright 2024 Per Starke - https://perstarke-webdev.de/
+  Free for personal and commercial use under the MIT license
+  https://opensource.org/license/mit/
+-->
+
+<!--
+  Based on Minimal Mistakes Jekyll Theme.
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose.
+  Copyright 2013-2021 Michael Rose - mademistakes.com | @mmistakes
+  Licensed under MIT.
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Contact Us - Nostr4</title>
+<meta name="description" content="Nostr4 Public Website">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Nostr4">
+<meta property="og:title" content="Contact Us">
+<meta property="og:url" content="http://localhost:4000/contact/">
+
+
+  <meta property="og:description" content="Nostr4 Public Website">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/contact/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Nostr4 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Nostr Tools Library -->
+<script src="https://unpkg.com/nostr-tools/lib/nostr.bundle.js"></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    
+
+<div class="masthead" style="opacity: 0.85 !important;  position: fixed;">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/nostr4-logo-color.png" alt="Nostr<b>4</b>"></a>
+        
+        <a class="site-title" href="/">
+          Nostr<b>4</b>
+          <span class="site-subtitle">Freedom 4 Every App</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/#nostr" >What is</a>
+            </li><li class="masthead__menu-item">
+              <a href="/#non-custodial" >the Value of Nostr?</a>
+            </li><li class="masthead__menu-item">
+              <a href="/#contact" >Contact Us</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+
+    <style>
+
+        .bg {
+          background-image: url();
+        }
+
+        .bg::after {
+           background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        
+      </style>
+
+
+    
+
+        
+
+      <div class="initial-content">
+        
+
+<div id="main" role="main">
+    <section class="page__content" itemprop="text">
+      <style>
+  .contact-form { max-width: 700px; margin: 2rem auto; padding: 2rem; }
+  .hero-section { text-align: center; margin-bottom: 2rem; }
+  .hero-section h1 { margin-bottom: 0.5rem; }
+  .hero-section p { color: #666; font-size: 1.1rem; }
+  
+  .card { 
+    border: 1px solid #ddd; 
+    padding: 1.5rem; 
+    border-radius: 8px; 
+    margin: 1rem 0; 
+    background: rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+  }
+  
+  .card.collapsed { 
+    max-height: 0; 
+    padding: 0 1.5rem; 
+    margin: 0; 
+    overflow: hidden; 
+    opacity: 0;
+    border: none;
+  }
+  
+  .card h2 { margin-top: 0; font-size: 1.3rem; }
+  
+  .form-group { margin: 1rem 0; }
+  .form-group label { 
+    display: block; 
+    margin-bottom: 0.5rem; 
+    font-weight: 500;
+  }
+  
+  input, textarea { 
+    width: 100%; 
+    padding: .75rem; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  textarea { 
+    min-height: 150px; 
+    resize: vertical; 
+    font-family: inherit;
+  }
+  
+  button { 
+    padding: .75rem 1.5rem; 
+    background: #7b16ff; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.2s;
+    width: 100%;
+  }
+  
+  button:hover { background: #6a13e0; }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+  
+  .btn-secondary {
+    background: #fff;
+    color: #7b16ff;
+    border: 2px solid #7b16ff;
+  }
+  
+  .btn-secondary:hover {
+    background: #f5f5f5;
+  }
+  
+  .divider { 
+    text-align: center; 
+    margin: 1.5rem 0; 
+    color: #999;
+    position: relative;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #ddd;
+  }
+  
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+  
+  .validation-msg { 
+    margin-top: 0.5rem; 
+    font-size: 0.9rem;
+    min-height: 1.5rem;
+  }
+  
+  .user-info {
+    background: rgba(123, 22, 255, 0.1);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .user-info .identity {
+    font-weight: 500;
+    color: #7b16ff;
+  }
+  
+  .user-info button {
+    width: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background: transparent;
+    color: #7b16ff;
+    border: 1px solid #7b16ff;
+  }
+  
+  .user-info button:hover {
+    background: rgba(123, 22, 255, 0.1);
+  }
+  
+  .status-msg {
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .status-msg.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .status-msg.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .status-msg.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+  }
+  
+  .loading {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #7b16ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .encryption-notice {
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.03);
+    border-radius: 4px;
+  }
+  
+  .signer-select-wrapper {
+    position: relative;
+  }
+  
+  .signer-input-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .signer-input-group input {
+    flex: 1;
+  }
+  
+  .signer-input-group button {
+    width: auto;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .signer-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .signer-option {
+    padding: 0.75rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+  }
+  
+  .signer-option:hover {
+    background: rgba(123, 22, 255, 0.05);
+  }
+  
+  .signer-option:last-child {
+    border-bottom: none;
+  }
+  
+  .signer-option .name {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .signer-option .description {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+  
+  .signer-option .platform {
+    display: inline-block;
+    font-size: 0.75rem;
+    background: #7b16ff;
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.25rem;
+  }
+  
+  .signer-loading {
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  /* Tab Navigation */
+  .auth-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e0e0e0;
+  }
+  
+  .auth-tab {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: -2px;
+  }
+  
+  .auth-tab:hover {
+    color: #7b16ff;
+    background: rgba(123, 22, 255, 0.05);
+  }
+  
+  .auth-tab.active {
+    color: #7b16ff;
+    border-bottom-color: #7b16ff;
+  }
+  
+  /* Tab Content */
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Auth Options */
+  .auth-option {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Enhanced Buttons */
+  .btn-primary, .btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    position: relative;
+  }
+  
+  .btn-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .btn-text strong {
+    font-size: 1rem;
+  }
+  
+  .btn-text small {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    font-weight: normal;
+  }
+  
+  .btn-icon {
+    font-size: 1.5rem;
+  }
+  
+  .btn-icon-only {
+    width: auto;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+  
+  /* Badges */
+  .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .badge.recommended {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+  }
+  
+  /* Divider */
+  .divider {
+    position: relative;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #999;
+    font-size: 0.9rem;
+  }
+  
+  .divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: #e0e0e0;
+    z-index: 0;
+  }
+  
+  .divider span {
+    position: relative;
+    background: white;
+    padding: 0 1rem;
+    z-index: 1;
+  }
+  
+  /* Help Text */
+  .help-text {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  
+  .help-link {
+    color: #7b16ff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .help-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Tooltip */
+  .tooltip-trigger, .tooltip-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background: #7b16ff;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    cursor: help;
+    margin-left: 0.25rem;
+  }
+  
+  .tooltip-trigger:hover {
+    background: #6200ea;
+  }
+  
+  /* Advanced Options */
+  .advanced-options {
+    margin-top: 1rem;
+  }
+  
+  .advanced-toggle {
+    background: none;
+    border: none;
+    color: #7b16ff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .advanced-toggle:hover {
+    text-decoration: underline;
+  }
+  
+  #advanced-icon {
+    transition: transform 0.3s;
+    display: inline-block;
+  }
+  
+  #advanced-icon.rotated {
+    transform: rotate(90deg);
+  }
+  
+  .advanced-content {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.02);
+    border-radius: 4px;
+    border-left: 3px solid #7b16ff;
+  }
+  
+  /* Remember Option */
+  .remember-option {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .remember-option label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    cursor: pointer;
+  }
+  
+  .remember-option input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+  }
+  
+  /* Signup Specific */
+  .signup-intro {
+    background: rgba(123, 22, 255, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #7b16ff;
+  }
+  
+  .signup-intro p {
+    margin: 0;
+    color: #333;
+    font-size: 0.95rem;
+  }
+  
+  #username-preview {
+    color: #7b16ff;
+  }
+  
+  .signup-footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .signup-footer a {
+    color: #7b16ff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .signup-footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .hidden { display: none !important; }
+</style>
+
+<div class="contact-form">
+  <div class="hero-section">
+    <h1>💬 Contact Us via Nostr</h1>
+    <p>Send us a private message securely using the Nostr protocol</p>
+  </div>
+
+  <!-- Authentication Card -->
+  <div id="auth-card" class="card">
+    <h2>🔐 Sign In to Continue</h2>
+    
+    <!-- Tab Navigation -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')" id="tab-login">
+        Sign In
+      </button>
+      <button class="auth-tab" onclick="switchAuthTab('signup')" id="tab-signup">
+        Create Account
+      </button>
+    </div>
+    
+    <!-- Login Tab Content -->
+    <div id="login-tab-content" class="tab-content active">
+      
+      <!-- NIP-07 Login (Browser Extension) -->
+      <div id="nip07-section" class="auth-option">
+        <button id="nip07-login-btn" onclick="loginWithNip07()" class="btn-primary">
+          <span class="btn-icon">🔑</span>
+          <span class="btn-text">
+            <strong>Browser Extension</strong>
+            <small>Use your installed Nostr extension</small>
+          </span>
+          <span id="nip07-badge" class="badge recommended hidden">Recommended</span>
+        </button>
+        <div class="help-text">
+          Don't have an extension? 
+          <a href="#" onclick="showExtensionHelp(); return false;" class="help-link">
+            Install one <span class="tooltip-icon">?</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="divider"><span>or</span></div>
+      
+      <!-- NIP-46 Remote Signer Login -->
+      <div id="nip46-section" class="auth-option">
+        <div class="form-group">
+          <label for="signer-select">
+            Remote Signer
+            <span class="tooltip-trigger" onclick="showTooltip('remote-signer')">?</span>
+          </label>
+          <div class="signer-select-wrapper">
+            <div class="signer-input-group">
+              <input 
+                type="text" 
+                id="signer-select" 
+                placeholder="Choose from list..."
+                style="font-family: monospace; font-size: 0.9rem;"
+                onfocus="showSignerDropdown()"
+                oninput="filterSigners(this.value)"
+              >
+              <button onclick="refreshSigners()" title="Refresh signers list" class="btn-icon-only">🔄</button>
+            </div>
+            <div id="signer-dropdown" class="signer-dropdown hidden"></div>
+          </div>
+        </div>
+        
+        <button id="nip46-login-btn" onclick="loginWithNip46()" class="btn-secondary">
+          <span class="btn-icon">🔐</span>
+          <span>Connect to Remote Signer</span>
+        </button>
+        
+        <!-- Advanced Options (Collapsible) -->
+        <div class="advanced-options">
+          <button class="advanced-toggle" onclick="toggleAdvanced()" id="advanced-toggle">
+            <span id="advanced-icon">▶</span> Advanced Options
+          </button>
+          <div id="advanced-content" class="advanced-content hidden">
+            <div class="form-group">
+              <label for="bunker-uri-input">Paste Bunker URI</label>
+              <input 
+                type="text" 
+                id="bunker-uri-input" 
+                placeholder="bunker://..."
+                style="font-family: monospace; font-size: 0.85rem;"
+              >
+              <div class="help-text">
+                For advanced users with a bunker:// connection string
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Remember preference -->
+      <div class="remember-option">
+        <label>
+          <input type="checkbox" id="remember-method" checked>
+          Remember my sign-in method
+        </label>
+      </div>
+    </div>
+    
+    <!-- Signup Tab Content -->
+    <div id="signup-tab-content" class="tab-content">
+      <div class="signup-intro">
+        <p>Create a new Nostr account with nsec.app - a secure web-based key manager.</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="username">
+          Choose Username
+          <span class="tooltip-trigger" onclick="showTooltip('username')">?</span>
+        </label>
+        <input 
+          type="text" 
+          id="username" 
+          placeholder="Enter username" 
+          oninput="validateUsername(this.value)"
+        >
+        <div id="username-validation" class="validation-msg"></div>
+        <div class="help-text">
+          Your username will be: <strong id="username-preview">username@nsec.app</strong>
+        </div>
+      </div>
+      
+      <button id="create-account-btn" onclick="createAccount()" disabled class="btn-primary">
+        <span class="btn-icon">✨</span>
+        <span>Create My Account</span>
+      </button>
+      
+      <div class="signup-footer">
+        Already have an account? 
+        <a href="#" onclick="switchAuthTab('login'); return false;">Sign in instead</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message Card -->
+  <div id="message-card" class="card collapsed">
+    <h2>📝 Your Message</h2>
+    
+    <div id="user-info" class="user-info">
+      <span class="identity" id="user-identity">Logged in</span>
+      <button onclick="logout()">Logout</button>
+    </div>
+    
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input 
+        type="text" 
+        id="subject" 
+        placeholder="What's this about?"
+      >
+    </div>
+    
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea 
+        id="message" 
+        placeholder="Type your message here..."
+      ></textarea>
+    </div>
+    
+    <button id="send-btn" onclick="sendMessage()">
+      📤 Send Private Message
+    </button>
+    
+    <div class="encryption-notice">
+      🔒 Your message will be encrypted with NIP-17 (Private DMs)
+    </div>
+  </div>
+
+  <!-- Status Messages -->
+  <div id="status-container"></div>
+</div>
+
+<script>
+// Disable global nostrtools.js auto-init on this page to avoid extra pools/subscriptions
+window.Nostr4DisableGlobalNostrTools = true;
+// ============================================================================
+// CONFIGURATION - Fill in your values here
+// ============================================================================
+const CONFIG = {
+  APP_NAME: 'Nostr4 Demo Contact', // e.g., 'Nostr4 Contact Form'
+  APP_PUBKEY: 'df67f9a7e41125745cbe7acfbdcd03691780c643df7bad70f5d2108f2d4fc200', // Your app's public key (hex) to receive messages
+  APP_RELAYS: ['wss://relay.nostr.band', 'wss://relay.damus.io'], // e.g., ['wss://relay.damus.io', 'wss://relay.nostr.band']
+  NSEC_APP_RELAYS: ['wss://relay.nsec.app'],
+  NIP46_CONNECT_EXTRA_RELAYS: ['wss://relay.damus.io'],
+  REQUESTED_PERMS: 'sign_event:1,sign_event:13,sign_event:14,nip04_encrypt,nip44_encrypt'
+};
+
+// ============================================================================
+// GLOBAL STATE
+// ============================================================================
+const NT = window.NostrTools;
+let state = {
+  authMethod: null, // 'nip07' | 'nip46'
+  isAuthenticated: false,
+  userPubkey: null,
+  userNip05: null,
+  
+  // NIP-46 state
+  pool: null,
+  clientSk: null,
+  clientSkHex: '',
+  clientPubkeyHex: '',
+  remoteSignerPubkeyHex: '',
+  connectAcked: false,
+  clientSecret: '',
+  bunkerRelays: [], // Relays used for the current bunker connection
+  nip46Cipher: 'nip04', // Use nip04 by default; will switch to nip44 if remote replies with nip44
+  
+  // NIP-89 discovery
+  discoveredSigners: [],
+  allSigners: [], // Includes both discovered and default signers
+  
+  // Validation
+  isUsernameValid: false,
+  lastValidatedUsername: '',
+  validationTimeout: null
+};
+
+const waiters = new Map();
+
+// Default well-known signers (fallback if NIP-89 discovery fails)
+// These signers accept nostrconnect:// URIs via query parameters
+const DEFAULT_SIGNERS = [
+  {
+    name: 'nsec.app',
+    description: 'Web-based Nostr key manager and remote signer',
+    platform: 'web',
+    url: 'https://nsec.app',
+    isDefault: true,
+    // nsec.app accepts: https://nsec.app?bunker=nostrconnect://...
+  }
+];
+
+// ============================================================================
+// INITIALIZATION
+// ============================================================================
+window.addEventListener('DOMContentLoaded', () => {
+  // Load saved preferences first
+  loadAuthPreferences();
+  
+  detectAuthMethods();
+  loadSession();
+  discoverSigners(); // Start NIP-89 discovery
+  
+  // Re-check for NIP-07 after a delay (extensions load asynchronously)
+  setTimeout(() => {
+    console.log('Re-checking for NIP-07 extension after delay...');
+    detectAuthMethods();
+  }, 500);
+  
+  // Also check on window load (backup)
+  window.addEventListener('load', () => {
+    console.log('Window loaded, final NIP-07 check...');
+    detectAuthMethods();
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('signer-dropdown');
+    const input = document.getElementById('signer-select');
+    if (!dropdown.contains(e.target) && e.target !== input) {
+      dropdown.classList.add('hidden');
+    }
+  });
+  
+  // Initialize username preview
+  updateUsernamePreview();
+});
+
+function detectAuthMethods() {
+  const nip07Section = document.getElementById('nip07-section');
+  const nip07Badge = document.getElementById('nip07-badge');
+  
+  console.log('Detecting auth methods...', { hasNostr: !!window.nostr });
+  
+  if (window.nostr) {
+    // NIP-07 available - show the button with recommended badge
+    console.log('NIP-07 extension detected, showing button');
+    nip07Section.style.display = 'block';
+    
+    // Show "Recommended" badge
+    if (nip07Badge) {
+      nip07Badge.classList.remove('hidden');
+    }
+  } else {
+    // No NIP-07, hide that option
+    console.log('No NIP-07 extension, hiding button');
+    nip07Section.style.display = 'none';
+  }
+}
+
+function loadSession() {
+  // Try to restore NIP-46 session from localStorage
+  try {
+    const saved = localStorage.getItem('nostr_contact_session');
+    if (saved) {
+      const session = JSON.parse(saved);
+      // TODO: Implement session restoration
+      // For now, just clear old sessions
+      localStorage.removeItem('nostr_contact_session');
+    }
+  } catch (e) {
+    console.error('Failed to load session:', e);
+  }
+}
+
+// ============================================================================
+// NIP-89 SIGNER DISCOVERY
+// ============================================================================
+async function discoverSigners() {
+  console.log('Starting NIP-89 signer discovery...');
+  
+  // Start with default signers
+  state.allSigners = [...DEFAULT_SIGNERS];
+  renderSignerDropdown();
+  
+  if (!CONFIG.APP_RELAYS || CONFIG.APP_RELAYS.length === 0) {
+    console.log('No relays configured for discovery');
+    return;
+  }
+  
+  try {
+    const pool = new NT.SimplePool();
+    const discovered = [];
+    
+    // Query for kind:31990 events (handler information) for NIP-46
+    // Use union of app relays and nsec.app relays for discovery
+    const discoveryRelays = Array.from(new Set([...(CONFIG.APP_RELAYS || []), ...(CONFIG.NSEC_APP_RELAYS || [])]));
+    const events = await pool.querySync(
+      discoveryRelays,
+      {
+        kinds: [31990],
+        '#k': ['24133'], // NIP-46 event kind
+        limit: 50
+      }
+    );
+    
+    pool.close(discoveryRelays);
+    
+    console.log(`Found ${events.length} potential NIP-46 handlers`);
+    
+    for (const event of events) {
+      try {
+        const signer = parseHandlerEvent(event);
+        if (signer) {
+          console.log('Discovered signer:', {
+            name: signer.name,
+            url: signer.url,
+            platform: signer.platform,
+            pubkey: signer.pubkey?.slice(0, 16) + '...'
+          });
+          discovered.push(signer);
+        }
+      } catch (e) {
+        console.error('Failed to parse handler event:', e);
+      }
+    }
+    
+    state.discoveredSigners = discovered;
+    
+    // Merge discovered signers with defaults (avoid duplicates - prefer discovered with pubkey)
+    const allSigners = [...DEFAULT_SIGNERS];
+    for (const signer of discovered) {
+      const dupIndex = allSigners.findIndex(s => 
+        s.name.toLowerCase() === signer.name.toLowerCase() || 
+        s.url.toLowerCase() === signer.url.toLowerCase()
+      );
+      
+      if (dupIndex === -1) {
+        allSigners.push(signer);
+      } else {
+        const existing = allSigners[dupIndex];
+        // Prefer discovered if it has pubkey or a more specific URL (use.nsec.app)
+        if (existing.isDefault && signer.pubkey) {
+          allSigners[dupIndex] = { ...existing, ...signer, isDefault: false };
+          console.log(`Replaced default signer with discovered: ${signer.name} (${signer.url})`);
+        } else if (!existing.pubkey && signer.pubkey) {
+          allSigners[dupIndex] = { ...existing, pubkey: signer.pubkey, url: signer.url };
+          console.log(`Merged pubkey into existing signer: ${signer.name} (${signer.url})`);
+        } else {
+          console.log(`Keeping existing signer: ${existing.name} (${existing.url})`);
+        }
+      }
+    }
+    
+    state.allSigners = allSigners;
+    renderSignerDropdown();
+    
+    console.log(`Discovered ${discovered.length} signers, merged to ${allSigners.length} total`);
+    console.log('All signers:', allSigners.map(s => ({ name: s.name, url: s.url })));
+    
+  } catch (error) {
+    console.error('NIP-89 discovery failed:', error);
+    // Keep default signers
+  }
+}
+
+function parseHandlerEvent(event) {
+  // Parse kind:31990 handler event
+  const kTags = event.tags.filter(t => t[0] === 'k');
+  const webTags = event.tags.filter(t => t[0] === 'web');
+  
+  if (webTags.length === 0) {
+    return null; // Not a web handler
+  }
+  
+  // Parse metadata from content
+  let metadata = {};
+  try {
+    if (event.content) {
+      metadata = JSON.parse(event.content);
+    }
+  } catch (e) {
+    // No metadata, that's okay
+  }
+  
+  const name = metadata.name || metadata.display_name || 'Unknown Signer';
+  const description = metadata.about || 'NIP-46 remote signer';
+  
+  // Get web URL template - should contain <bech32> placeholder
+  const webUrl = webTags[0][1]; // First web URL
+  
+  // Extract base URL (without the placeholder path)
+  let baseUrl = webUrl;
+  try {
+    const url = new URL(webUrl);
+    baseUrl = `${url.protocol}//${url.host}`;
+  } catch (e) {
+    // Keep as is
+  }
+  
+  return {
+    name,
+    description,
+    platform: 'web',
+    url: baseUrl,
+    webUrlTemplate: webUrl, // Keep template for later use
+    pubkey: event.pubkey,
+    isDefault: false
+  };
+}
+
+function refreshSigners() {
+  showStatus('Refreshing signers list...', 'info');
+  discoverSigners();
+}
+
+function showSignerDropdown() {
+  const dropdown = document.getElementById('signer-dropdown');
+  const input = document.getElementById('signer-select');
+  
+  // Don't show dropdown if user is typing a bunker URI
+  if (input.value.startsWith('bunker://')) {
+    dropdown.classList.add('hidden');
+    return;
+  }
+  
+  renderSignerDropdown();
+  dropdown.classList.remove('hidden');
+}
+
+function filterSigners(query) {
+  const dropdown = document.getElementById('signer-dropdown');
+  
+  // If typing bunker URI, hide dropdown
+  if (query.startsWith('bunker://')) {
+    dropdown.classList.add('hidden');
+    return;
+  }
+  
+  // Filter signers by query
+  const filtered = state.allSigners.filter(signer => 
+    signer.name.toLowerCase().includes(query.toLowerCase()) ||
+    signer.description.toLowerCase().includes(query.toLowerCase())
+  );
+  
+  renderSignerDropdown(filtered);
+  dropdown.classList.remove('hidden');
+}
+
+function renderSignerDropdown(signers = null) {
+  const dropdown = document.getElementById('signer-dropdown');
+  const signersToShow = signers || state.allSigners;
+  
+  if (signersToShow.length === 0) {
+    dropdown.innerHTML = '<div class="signer-loading">No signers found. Try refreshing.</div>';
+    return;
+  }
+  
+  dropdown.innerHTML = signersToShow.map(signer => `
+    <div class="signer-option" onclick="selectSigner('${escapeHtml(signer.name)}')">
+      <div class="name">${escapeHtml(signer.name)}</div>
+      <div class="description">${escapeHtml(signer.description)}</div>
+      <span class="platform">${signer.platform}</span>
+    </div>
+  `).join('');
+}
+
+function selectSigner(name) {
+  const signer = state.allSigners.find(s => s.name === name);
+  if (!signer) return;
+  
+  const input = document.getElementById('signer-select');
+  const dropdown = document.getElementById('signer-dropdown');
+  
+  // For default signers like nsec.app, just set the name
+  // The login flow will handle it
+  input.value = signer.name;
+  input.dataset.signerUrl = signer.url;
+  input.dataset.signerPubkey = signer.pubkey || '';
+  
+  dropdown.classList.add('hidden');
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Convert nostrconnect:// URI to web signer URL
+function nostrConnectToWebUrl(nostrConnectUri, signerBaseUrl) {
+  // For nsec.app, prefer path-based deep link:
+  //   https://use.nsec.app/nostrconnect/<client-pubkey>?<query>
+  // Fallback to token parameter if parsing fails.
+  // For other signers, they may have different formats
+  
+  if (signerBaseUrl.includes('nsec.app')) {
+    try {
+      const match = nostrConnectUri.match(/^nostrconnect:\/\/([0-9a-f]{64})\?(.+)$/i);
+      if (match) {
+        const clientPubkey = match[1];
+        const query = match[2];
+        return `https://use.nsec.app/nostrconnect/${clientPubkey}?${query}`;
+      }
+    } catch (e) {
+      // ignore and fall back
+    }
+    return `https://use.nsec.app?token=${encodeURIComponent(nostrConnectUri)}`;
+  }
+  
+  // Generic fallback: append as query parameter
+  return `${signerBaseUrl}?nostrconnect=${encodeURIComponent(nostrConnectUri)}`;
+}
+
+// ============================================================================
+// AUTHENTICATION - NIP-07
+// ============================================================================
+async function loginWithNip07() {
+  showStatus('Connecting to browser extension...', 'info');
+  
+  try {
+    if (!window.nostr) {
+      throw new Error('No Nostr extension found. Please install a NIP-07 compatible extension.');
+    }
+    
+    const pubkey = await window.nostr.getPublicKey();
+    
+    if (!pubkey || !/^[0-9a-f]{64}$/i.test(pubkey)) {
+      throw new Error('Invalid public key from extension');
+    }
+    
+    state.authMethod = 'nip07';
+    state.isAuthenticated = true;
+    state.userPubkey = pubkey;
+    
+    // Save preference
+    saveAuthMethodPreference('nip07');
+    
+    onLoginSuccess();
+    
+  } catch (error) {
+    showStatusWithAction(
+      'Login failed: ' + error.message,
+      'error',
+      'Try Again',
+      'loginWithNip07()'
+    );
+    console.error('NIP-07 login error:', error);
+  }
+}
+
+// ============================================================================
+// AUTHENTICATION - NIP-46 (Login)
+// ============================================================================
+async function loginWithNip46() {
+  if (!CONFIG.APP_NAME) {
+    showStatus('Error: APP_NAME not configured', 'error');
+    return;
+  }
+  // Ensure we start with nip04 for the initial handshake
+  state.nip46Cipher = 'nip04';
+  
+  const signerInput = document.getElementById('signer-select');
+  const bunkerUriInput = document.getElementById('bunker-uri-input');
+  let inputValue = signerInput.value.trim();
+  
+  // Check advanced options for bunker URI
+  if (!inputValue && bunkerUriInput) {
+    inputValue = bunkerUriInput.value.trim();
+  }
+  
+  showStatus('Connecting to remote signer...', 'info');
+  
+  try {
+    let bunkerPubkey = null;
+    let bunkerRelays = [];
+    let bunkerSecret = null;
+    
+    // Check if input is a bunker URI or a signer name
+    if (inputValue.startsWith('bunker://')) {
+      // Parse bunker URI
+      const parsed = parseBunkerUri(inputValue);
+      if (!parsed) {
+        throw new Error('Invalid bunker URI format. Expected: bunker://<pubkey>?relay=wss://...&secret=...');
+      }
+      bunkerPubkey = parsed.pubkey;
+      bunkerRelays = parsed.relays;
+      bunkerSecret = parsed.secret;
+      
+      console.log('Using bunker URI:', { pubkey: bunkerPubkey, relays: bunkerRelays });
+    } else if (inputValue) {
+      // Check if it's a selected signer from the dropdown
+      const selectedSigner = state.allSigners.find(s => s.name === inputValue);
+      if (selectedSigner && selectedSigner.pubkey) {
+        // Use discovered signer info
+        bunkerPubkey = selectedSigner.pubkey;
+        // TODO: Extract relay info from handler event if available
+        console.log('Using discovered signer:', selectedSigner.name);
+      }
+    }
+    
+    // Step 1: Generate client keypair
+    const { secretKey, publicKey } = generateKeyPair();
+    state.clientSk = secretKey;
+    state.clientSkHex = toHex(secretKey);
+    state.clientPubkeyHex = publicKey;
+    state.clientSecret = bunkerSecret || Math.random().toString(36).slice(2, 10);
+    
+    // Step 2: Determine relays to use
+    const relaysToUse = bunkerRelays.length > 0 ? bunkerRelays : CONFIG.NSEC_APP_RELAYS;
+    state.bunkerRelays = relaysToUse; // Store for later use in RPC calls
+    
+    // Step 3: Initialize pool
+    state.pool = new NT.SimplePool({ enablePing: true, enableReconnect: true });
+    
+    // If bunker pubkey is known, connect directly
+    if (bunkerPubkey) {
+      state.remoteSignerPubkeyHex = bunkerPubkey;
+      
+      // Subscribe to responses
+      const since = Math.floor(Date.now() / 1000) - 60;
+      // For direct-bunker we know the remote signer pubkey; prefer authors filter for wide relay compatibility
+      const directFilter = { kinds: [24133], authors: [state.remoteSignerPubkeyHex], since };
+      // Ensure a plain-object filter is sent (defensive clone)
+      const safeDirectFilter = JSON.parse(JSON.stringify(directFilter));
+      const listenRelays = Array.from(new Set([...(relaysToUse || []), ...((CONFIG.NIP46_CONNECT_EXTRA_RELAYS || []))]));
+      console.log('Subscribing for NIP-46 connect responses (direct bunker)', { relays: listenRelays, filter: safeDirectFilter, json: JSON.stringify(safeDirectFilter) });
+      state.pool.subscribeMany(
+        listenRelays,
+        [safeDirectFilter],
+        {
+          async onevent(ev) {
+            try {
+              let payload, data, algo = 'nip44';
+              try {
+                payload = await NT.nip44.decrypt(state.clientSkHex, ev.pubkey, ev.content);
+                data = JSON.parse(payload);
+              } catch (e44) {
+                try {
+                  payload = await NT.nip04.decrypt(state.clientSkHex, ev.pubkey, ev.content);
+                  data = JSON.parse(payload);
+                  algo = 'nip04';
+                } catch (e04) {
+                  throw { e44, e04 };
+                }
+              }
+              // Debug log full payload
+              try {
+                console.log('NIP-46 incoming (direct bunker)', { from: NT.nip19.npubEncode(ev.pubkey), data, raw: payload, algo });
+              } catch (_) {}
+              
+              // Set remote signer pubkey on first valid decrypt
+              if (!state.remoteSignerPubkeyHex) state.remoteSignerPubkeyHex = ev.pubkey;
+              // Negotiate cipher
+              state.nip46Cipher = algo;
+              
+              const ack = (
+                data?.result === state.clientSecret ||
+                data?.method === 'connect' ||
+                data?.result === true ||
+                (typeof data?.result === 'object' && data?.result?.secret === state.clientSecret)
+              );
+              if (!state.connectAcked && ack) {
+                state.connectAcked = true;
+                console.log('✅ Connected to bunker');
+                return;
+              }
+              
+              const waiter = data.id && waiters.get(data.id);
+              if (waiter) {
+                waiter({ result: data.result, error: data.error });
+                waiters.delete(data.id);
+              }
+            } catch (e) {
+              console.error('Decrypt/parse error:', e);
+            }
+          }
+        ,
+          onnotice(relay, msg) {
+            try {
+              console.warn('Relay NOTICE (direct bunker)', relay?.url || relay, msg, { filter: safeDirectFilter, json: JSON.stringify(safeDirectFilter) });
+            } catch (e) {
+              console.warn('Relay NOTICE (direct bunker)', relay?.url || relay, msg);
+            }
+          }
+        }
+      );
+      // DEBUG: temporary catch-all for 24133 to inspect any responses
+      try {
+        const dbg = state.pool.subscribeMany(listenRelays, [{ kinds: [24133] }], {
+          onevent(ev) {
+            try { console.log('DEBUG 24133 (direct bunker)', ev); } catch (_) {}
+          }
+        });
+        setTimeout(() => { try { dbg.close(); } catch(_) {} }, 15000);
+      } catch(_) {}
+      
+      // Send connect request
+      showStatus('Sending connect request...', 'info');
+      await sendConnectRequest(listenRelays);
+      
+      // Wait for ACK
+      let tries = 0;
+      while (!state.connectAcked && tries++ < 120) {
+        await new Promise(ok => setTimeout(ok, 500));
+      }
+      
+      if (!state.connectAcked) {
+        throw new Error('Connection timeout. The remote signer did not respond.');
+      }
+      
+    } else {
+      // No bunker URI - use web signer flow
+      
+      const connectRelays = Array.from(new Set([...(relaysToUse || []), ...((CONFIG.NIP46_CONNECT_EXTRA_RELAYS || []))]));
+      const relayParam = connectRelays.map(r => `relay=${encodeURIComponent(r)}`).join('&');
+      const nostrConnectUri = `nostrconnect://${state.clientPubkeyHex}?${relayParam}&secret=${state.clientSecret}&name=${encodeURIComponent(CONFIG.APP_NAME)}&url=${encodeURIComponent(location.origin)}&perms=${encodeURIComponent(CONFIG.REQUESTED_PERMS)}`;
+      
+      // Determine which signer to use
+      let signerUrl = 'https://use.nsec.app'; // Default
+      // Prefer discovered entry with pubkey when multiple signers share the same name (case-insensitive)
+      const nameLower = (inputValue || '').toLowerCase();
+      let candidates = state.allSigners.filter(s => (s.name || '').toLowerCase() === nameLower);
+      // Fallback: try match by URL host if names don't match
+      if (candidates.length === 0) {
+        candidates = state.allSigners.filter(s => {
+          try { return (new URL(s.url)).host.toLowerCase().includes(nameLower); } catch (_) { return false; }
+        });
+      }
+      let selectedSigner = candidates.find(s => s.pubkey) || candidates[0];
+      // Additional fallback: pick any discovered signer with host ending in nsec.app
+      if (!selectedSigner || !selectedSigner.pubkey) {
+        try {
+          const fb = state.allSigners.find(s => s.pubkey && s.url && (new URL(s.url)).host.toLowerCase().endsWith('nsec.app'));
+          if (fb) {
+            selectedSigner = fb;
+          }
+        } catch (_) {}
+      }
+      if (selectedSigner && selectedSigner.url) {
+        signerUrl = selectedSigner.url;
+      }
+      
+      // Convert nostrconnect:// URI to web URL
+      const webUrl = nostrConnectToWebUrl(nostrConnectUri, signerUrl);
+      // DEBUG: log the URLs
+      console.log('Opening remote signer', { webUrl, nostrConnectUri, relaysToUse: connectRelays, clientPubkey: state.clientPubkeyHex, secret: state.clientSecret });
+      // Open popup immediately (must be synchronous with the click to avoid blockers)
+      showStatus('Opening remote signer... Please approve the connection.', 'info');
+      openPopup(webUrl, 'Remote Signer Login');
+      
+      // Start subscriptions after popup to preserve user gesture context
+      startSubscriptions();
+      // DEBUG: temporary catch-all for 24133 to inspect any responses
+      try {
+        const dbg = state.pool.subscribeMany(connectRelays, [{ kinds: [24133] }], {
+          onevent(ev) {
+            try { console.log('DEBUG 24133', ev); } catch (_) {}
+          }
+        });
+        setTimeout(() => { try { dbg.close(); } catch(_) {} }, 15000);
+      } catch(_) {}
+      
+      // If we know the signer's pubkey (via NIP-89 discovery), send proactive connect
+      if (selectedSigner && selectedSigner.pubkey && /^[0-9a-f]{64}$/i.test(selectedSigner.pubkey)) {
+        try {
+          state.remoteSignerPubkeyHex = selectedSigner.pubkey;
+          showStatus('Sending connect request to signer...', 'info');
+          // Fire-and-forget to keep popup timing in user-gesture stack
+          sendConnectRequest(connectRelays).catch(e => console.warn('Proactive connect request failed', e));
+        } catch (e) {
+          console.warn('Proactive connect request failed', e);
+        }
+      }
+      
+      let tries = 0;
+      while (!state.connectAcked && tries++ < 120) {
+        await new Promise(ok => setTimeout(ok, 500));
+      }
+      
+      if (!state.connectAcked) {
+        throw new Error('Connection timeout. Please try again.');
+      }
+    }
+    
+    // Step 4: Get public key
+    showStatus('Getting your public key...', 'info');
+    const res = await rpc('get_public_key', []);
+    
+    if (!res.result || !/^[0-9a-f]{64}$/i.test(res.result)) {
+      throw new Error(res.error || 'Failed to get public key');
+    }
+    
+    state.authMethod = 'nip46';
+    state.isAuthenticated = true;
+    state.userPubkey = res.result;
+    
+    // Save preference
+    saveAuthMethodPreference('nip46');
+    
+    onLoginSuccess();
+    
+  } catch (error) {
+    showStatusWithAction(
+      'Login failed: ' + error.message,
+      'error',
+      'Try Again',
+      'loginWithNip46()'
+    );
+    console.error('NIP-46 login error:', error);
+    
+    // Cleanup
+    if (state.pool) {
+      const allRelays = [...CONFIG.NSEC_APP_RELAYS, ...CONFIG.APP_RELAYS];
+      state.pool.close(allRelays);
+    }
+    resetNip46State();
+  }
+}
+
+// Parse bunker:// URI
+function parseBunkerUri(uri) {
+  try {
+    // Format: bunker://<pubkey>?relay=wss://...&relay=wss://...&secret=...
+    if (!uri.startsWith('bunker://')) {
+      return null;
+    }
+    
+    const url = new URL(uri);
+    const pubkey = url.hostname || url.pathname.replace('//', '');
+    
+    if (!pubkey || !/^[0-9a-f]{64}$/i.test(pubkey)) {
+      return null;
+    }
+    
+    const relays = url.searchParams.getAll('relay');
+    const secret = url.searchParams.get('secret');
+    
+    return {
+      pubkey,
+      relays: relays.filter(r => r.startsWith('wss://') || r.startsWith('ws://')),
+      secret
+    };
+  } catch (e) {
+    console.error('Failed to parse bunker URI:', e);
+    return null;
+  }
+}
+
+// Send connect request to bunker
+async function sendConnectRequest(relays) {
+  const req = {
+    id: Math.random().toString(36).slice(2) + Date.now().toString(36),
+    method: 'connect',
+    params: [state.clientPubkeyHex, state.clientSecret]
+  };
+  
+  let content;
+  if (state.nip46Cipher === 'nip04') {
+    content = await NT.nip04.encrypt(
+      state.clientSkHex,
+      state.remoteSignerPubkeyHex,
+      JSON.stringify(req)
+    );
+  } else {
+    content = await NT.nip44.encrypt(
+      state.clientSkHex,
+      state.remoteSignerPubkeyHex,
+      JSON.stringify(req)
+    );
+  }
+  
+  const ev = {
+    kind: 24133,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [['p', state.remoteSignerPubkeyHex]],
+    content
+  };
+  
+  const signed = NT.finalizeEvent(ev, state.clientSk);
+  await state.pool.publish(relays, signed);
+}
+
+// ============================================================================
+// AUTHENTICATION - NIP-46 (Account Creation)
+// ============================================================================
+async function createAccount() {
+  const username = document.getElementById('username').value;
+  
+  // Validate username
+  if (!username || username.length < 3) {
+    showStatus('Please enter a valid username (at least 3 characters)', 'error');
+    return;
+  }
+  
+  if (!state.isUsernameValid || state.lastValidatedUsername !== username) {
+    const proceed = confirm(`Username "${username}" may not be available. Proceed anyway?`);
+    if (!proceed) return;
+  }
+  
+  if (!CONFIG.APP_NAME) {
+    showStatus('Error: APP_NAME not configured', 'error');
+    return;
+  }
+  
+  showStatus('Creating account...', 'info');
+  
+  try {
+    // Step 1: Generate client keypair
+    const { secretKey, publicKey } = generateKeyPair();
+    state.clientSk = secretKey;
+    state.clientSkHex = toHex(secretKey);
+    state.clientPubkeyHex = publicKey;
+    state.clientSecret = Math.random().toString(36).slice(2, 10);
+    state.bunkerRelays = CONFIG.NSEC_APP_RELAYS; // Store relays for RPC calls
+    
+    // Step 2: Initialize pool
+    state.pool = new NT.SimplePool({ enablePing: true, enableReconnect: true });
+    startSubscriptions();
+    
+    // Step 3: Build nostrconnect URI (NIP-46 spec fields)
+    const connectRelays = Array.from(new Set([...(CONFIG.NSEC_APP_RELAYS || []), ...((CONFIG.NIP46_CONNECT_EXTRA_RELAYS || []))]));
+    const relayParam = connectRelays.map(r => `relay=${encodeURIComponent(r)}`).join('&');
+    const nostrConnectUrl = `nostrconnect://${state.clientPubkeyHex}?${relayParam}&secret=${state.clientSecret}&name=${encodeURIComponent(CONFIG.APP_NAME)}&url=${encodeURIComponent(location.origin)}&perms=${encodeURIComponent(CONFIG.REQUESTED_PERMS)}`;
+    
+    // Step 4: Open nsec.app for account creation
+    const appNpub = NT.nip19.npubEncode(state.clientPubkeyHex);
+    const createUrl = `https://use.nsec.app/create?token=${encodeURIComponent(nostrConnectUrl)}&appNpub=${encodeURIComponent(appNpub)}&name=${encodeURIComponent(username)}&perms=${encodeURIComponent(CONFIG.REQUESTED_PERMS)}`;
+    
+    showStatus('Opening nsec.app... Please complete account creation in the popup window.', 'info');
+    openPopup(createUrl, 'Create Nsec.app Account');
+    
+    // Step 5: Wait for connection acknowledgment
+    let tries = 0;
+    while (!state.connectAcked && tries++ < 120) {
+      await new Promise(ok => setTimeout(ok, 500));
+    }
+    
+    if (!state.connectAcked) {
+      throw new Error('Connection timeout. Please try again.');
+    }
+    
+    // Step 6: Get public key
+    showStatus('Getting your public key...', 'info');
+    const res = await rpc('get_public_key', []);
+    
+    if (!res.result || !/^[0-9a-f]{64}$/i.test(res.result)) {
+      throw new Error(res.error || 'Failed to get public key');
+    }
+    
+    state.authMethod = 'nip46';
+    state.isAuthenticated = true;
+    state.userPubkey = res.result;
+    state.userNip05 = `${username}@nsec.app`;
+    
+    onLoginSuccess();
+    
+  } catch (error) {
+    showStatus('Account creation failed: ' + error.message, 'error');
+    console.error('NIP-46 creation error:', error);
+    
+    // Cleanup
+    if (state.pool) {
+      state.pool.close(CONFIG.NSEC_APP_RELAYS);
+    }
+    resetNip46State();
+  }
+}
+
+function startSubscriptions() {
+  if (!state.pool) return;
+  
+  const since = Math.floor(Date.now() / 1000) - 60;
+  const baseRelays = (state.bunkerRelays && state.bunkerRelays.length > 0)
+    ? state.bunkerRelays
+    : CONFIG.NSEC_APP_RELAYS;
+  const relaysToUse = Array.from(new Set([...(baseRelays || []), ...((CONFIG.NIP46_CONNECT_EXTRA_RELAYS || []))]));
+  if (!state.clientPubkeyHex || !/^[0-9a-f]{64}$/i.test(state.clientPubkeyHex)) {
+    console.error('Cannot subscribe: invalid client pubkey', state.clientPubkeyHex);
+    return;
+  }
+  const filter = state.remoteSignerPubkeyHex && /^[0-9a-f]{64}$/i.test(state.remoteSignerPubkeyHex)
+    ? { kinds: [24133], authors: [state.remoteSignerPubkeyHex], since }
+    : { kinds: [24133], '#p': [state.clientPubkeyHex], since };
+  const safeFilter = JSON.parse(JSON.stringify(filter));
+  console.log('Subscribing for NIP-46 connect responses', { relays: relaysToUse, filter: safeFilter, json: JSON.stringify(safeFilter) });
+  state.pool.subscribeMany(
+    relaysToUse,
+    [safeFilter],
+    {
+      async onevent(ev) {
+        try {
+          // Decrypt with nip44, fallback to nip04
+          let payload, data, algo = 'nip44';
+          try {
+            payload = await NT.nip44.decrypt(state.clientSkHex, ev.pubkey, ev.content);
+            data = JSON.parse(payload);
+          } catch (e44) {
+            try {
+              payload = await NT.nip04.decrypt(state.clientSkHex, ev.pubkey, ev.content);
+              data = JSON.parse(payload);
+              algo = 'nip04';
+            } catch (e04) {
+              throw { e44, e04 };
+            }
+          }
+          // Debug log full payload
+          try {
+            console.log('NIP-46 incoming', { from: NT.nip19.npubEncode(ev.pubkey), data, raw: payload, algo });
+          } catch (_) {}
+          
+          // Handle connect ACK
+          if (!state.remoteSignerPubkeyHex) state.remoteSignerPubkeyHex = ev.pubkey;
+          state.nip46Cipher = algo;
+          const ack = (
+            data?.result === state.clientSecret ||
+            data?.method === 'connect' ||
+            data?.result === true ||
+            (typeof data?.result === 'object' && data?.result?.secret === state.clientSecret)
+          );
+          if (!state.connectAcked && ack) {
+            state.connectAcked = true;
+            console.log('✅ Connected to bunker:', NT.nip19.npubEncode(state.remoteSignerPubkeyHex));
+            return;
+          }
+          
+          // Dispatch to RPC waiter
+          const waiter = data.id && waiters.get(data.id);
+          if (waiter) {
+            waiter({ result: data.result, error: data.error });
+            waiters.delete(data.id);
+          }
+        } catch (e) {
+          console.error('Decrypt/parse error:', e);
+        }
+      }
+    ,
+      onnotice(relay, msg) {
+        try {
+          console.warn('Relay NOTICE', relay?.url || relay, msg, { filter: safeFilter, json: JSON.stringify(safeFilter) });
+        } catch (e) {
+          console.warn('Relay NOTICE', relay?.url || relay, msg);
+        }
+      }
+    }
+  );
+}
+
+async function rpc(method, params) {
+  if (!state.pool || !state.remoteSignerPubkeyHex) {
+    throw new Error('Not connected to remote signer');
+  }
+  
+  const id = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const req = { id, method, params };
+  let content;
+  if (state.nip46Cipher === 'nip04') {
+    content = await NT.nip04.encrypt(state.clientSkHex, state.remoteSignerPubkeyHex, JSON.stringify(req));
+  } else {
+    content = await NT.nip44.encrypt(state.clientSkHex, state.remoteSignerPubkeyHex, JSON.stringify(req));
+  }
+  
+  const ev = {
+    kind: 24133,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [['p', state.remoteSignerPubkeyHex]],
+    content
+  };
+  
+  const signed = NT.finalizeEvent(ev, state.clientSk);
+  const p = new Promise(resolve => waiters.set(id, resolve));
+  
+  // Use stored bunker relays or fall back to NSEC_APP_RELAYS
+  const relaysToUse = state.bunkerRelays.length > 0 ? state.bunkerRelays : CONFIG.NSEC_APP_RELAYS;
+  await state.pool.publish(relaysToUse, signed);
+  
+  // Timeout after 30 seconds
+  const timeout = new Promise((_, reject) => 
+    setTimeout(() => reject(new Error('RPC timeout')), 30000)
+  );
+  
+  return await Promise.race([p, timeout]);
+}
+
+// ============================================================================
+// USERNAME VALIDATION
+// ============================================================================
+async function validateUsername(username) {
+  const validationEl = document.getElementById('username-validation');
+  const createBtn = document.getElementById('create-account-btn');
+  
+  // Clear previous timeout
+  if (state.validationTimeout) {
+    clearTimeout(state.validationTimeout);
+  }
+  
+  // Reset validation state
+  state.isUsernameValid = false;
+  createBtn.disabled = true;
+  
+  // Basic validation
+  if (!username || username.length < 3) {
+    validationEl.innerHTML = '<span style="color: #999;">Username must be at least 3 characters</span>';
+    return;
+  }
+  
+  // Check format (alphanumeric, underscore, hyphen)
+  if (!/^[a-z0-9_-]+$/i.test(username)) {
+    validationEl.innerHTML = '<span style="color: #f44336;">Username can only contain letters, numbers, underscore, and hyphen</span>';
+    return;
+  }
+  
+  // Show checking state
+  validationEl.innerHTML = '<span style="color: #999;">⏳ Checking availability...</span>';
+  
+  // Debounce the API check
+  state.validationTimeout = setTimeout(async () => {
+    try {
+      const response = await fetch(`https://nsec.app/.well-known/nostr.json?name=${encodeURIComponent(username)}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        if (data.names && data.names[username]) {
+          validationEl.innerHTML = '<span style="color: #f44336;">❌ Username is already taken</span>';
+          state.isUsernameValid = false;
+        } else {
+          validationEl.innerHTML = '<span style="color: #4caf50;">✅ Username is available!</span>';
+          state.isUsernameValid = true;
+          state.lastValidatedUsername = username;
+          createBtn.disabled = false;
+        }
+      } else if (response.status === 404) {
+        validationEl.innerHTML = '<span style="color: #4caf50;">✅ Username is available!</span>';
+        state.isUsernameValid = true;
+        state.lastValidatedUsername = username;
+        createBtn.disabled = false;
+      } else {
+        validationEl.innerHTML = '<span style="color: #ff9800;">⚠️ Could not verify availability</span>';
+        createBtn.disabled = false; // Allow them to try anyway
+      }
+    } catch (error) {
+      console.error('Username validation error:', error);
+      validationEl.innerHTML = '<span style="color: #ff9800;">⚠️ Could not verify availability</span>';
+      createBtn.disabled = false; // Allow them to try anyway
+    }
+  }, 500);
+}
+
+// ============================================================================
+// MESSAGE SENDING (NIP-17)
+// ============================================================================
+async function sendMessage() {
+  if (!state.isAuthenticated) {
+    showStatus('Please login first', 'error');
+    return;
+  }
+  
+  if (!CONFIG.APP_PUBKEY) {
+    showStatus('Error: APP_PUBKEY not configured', 'error');
+    return;
+  }
+  
+  if (!CONFIG.APP_RELAYS || CONFIG.APP_RELAYS.length === 0) {
+    showStatus('Error: APP_RELAYS not configured', 'error');
+    return;
+  }
+  
+  const subject = document.getElementById('subject').value.trim();
+  const message = document.getElementById('message').value.trim();
+  
+  if (!message) {
+    showStatus('Please enter a message', 'error');
+    return;
+  }
+  
+  showStatus('Encrypting and sending message...', 'info');
+  
+  try {
+    // Build message content
+    let content = message;
+    if (subject) {
+      content = `Subject: ${subject}\n\n${message}`;
+    }
+    
+    // Create NIP-17 gift-wrapped DM
+    const giftWrap = await createNip17DM(state.userPubkey, CONFIG.APP_PUBKEY, content);
+    
+    // Publish to relays
+    const pool = new NT.SimplePool();
+    await Promise.any(
+      CONFIG.APP_RELAYS.map(relay => pool.publish([relay], giftWrap))
+    );
+    pool.close(CONFIG.APP_RELAYS);
+    
+    showStatus('✅ Message sent successfully!', 'success');
+    
+    // Clear form
+    document.getElementById('subject').value = '';
+    document.getElementById('message').value = '';
+    
+  } catch (error) {
+    showStatus('Failed to send message: ' + error.message, 'error');
+    console.error('Send error:', error);
+  }
+}
+
+async function createNip17DM(senderPubkey, recipientPubkey, content) {
+  // NIP-17: Gift-wrapped Direct Messages
+  // Step 1: Create rumor (unsigned kind 14 event)
+  const rumor = {
+    kind: 14,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [['p', recipientPubkey]],
+    content: content,
+    pubkey: senderPubkey
+  };
+  
+  // Step 2: Create seal (kind 13, encrypted rumor)
+  const rumorJson = JSON.stringify(rumor);
+  let sealContent;
+  
+  if (state.authMethod === 'nip07') {
+    sealContent = await window.nostr.nip44.encrypt(recipientPubkey, rumorJson);
+  } else if (state.authMethod === 'nip46') {
+    const res = await rpc('nip44_encrypt', [recipientPubkey, rumorJson]);
+    if (!res.result) throw new Error(res.error || 'Encryption failed');
+    sealContent = res.result;
+  } else {
+    throw new Error('Not authenticated');
+  }
+  
+  const seal = {
+    kind: 13,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [],
+    content: sealContent,
+    pubkey: senderPubkey
+  };
+  
+  // Sign the seal
+  let signedSeal;
+  if (state.authMethod === 'nip07') {
+    signedSeal = await window.nostr.signEvent(seal);
+  } else if (state.authMethod === 'nip46') {
+    const res = await rpc('sign_event', [JSON.stringify(seal)]);
+    if (!res.result) throw new Error(res.error || 'Signing failed');
+    signedSeal = JSON.parse(res.result);
+  }
+  
+  // Step 3: Create gift wrap (kind 1059)
+  // Generate random ephemeral key for gift wrap
+  const ephemeralSk = window.crypto.getRandomValues(new Uint8Array(32));
+  const ephemeralPubkey = NT.getPublicKey(ephemeralSk);
+  
+  // Encrypt seal to recipient
+  const giftWrapContent = await NT.nip44.encrypt(
+    toHex(ephemeralSk),
+    recipientPubkey,
+    JSON.stringify(signedSeal)
+  );
+  
+  // Random timestamp within past 2 days
+  const randomTimestamp = Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 172800);
+  
+  const giftWrap = {
+    kind: 1059,
+    created_at: randomTimestamp,
+    tags: [['p', recipientPubkey]],
+    content: giftWrapContent,
+    pubkey: ephemeralPubkey
+  };
+  
+  // Sign with ephemeral key
+  const signedGiftWrap = NT.finalizeEvent(giftWrap, ephemeralSk);
+  
+  return signedGiftWrap;
+}
+
+// ============================================================================
+// UI HELPERS
+// ============================================================================
+function onLoginSuccess() {
+  // Hide auth card
+  document.getElementById('auth-card').classList.add('collapsed');
+  
+  // Show message card
+  document.getElementById('message-card').classList.remove('collapsed');
+  
+  // Update user identity display
+  const identityEl = document.getElementById('user-identity');
+  if (state.userNip05) {
+    identityEl.textContent = `Logged in as: ${state.userNip05}`;
+  } else {
+    const npub = NT.nip19.npubEncode(state.userPubkey);
+    identityEl.textContent = `Logged in as: ${npub.slice(0, 12)}...`;
+  }
+  
+  showStatus('✅ Login successful! You can now send a message.', 'success');
+  
+  // Focus on subject field
+  setTimeout(() => {
+    document.getElementById('subject').focus();
+  }, 300);
+}
+
+function logout() {
+  // Cleanup
+  if (state.pool) {
+    state.pool.close(CONFIG.NSEC_APP_RELAYS);
+  }
+  
+  // Reset state
+  resetNip46State();
+  state.authMethod = null;
+  state.isAuthenticated = false;
+  state.userPubkey = null;
+  state.userNip05 = null;
+  
+  // Clear localStorage
+  localStorage.removeItem('nostr_contact_session');
+  
+  // Reset UI
+  document.getElementById('auth-card').classList.remove('collapsed');
+  document.getElementById('message-card').classList.add('collapsed');
+  document.getElementById('subject').value = '';
+  document.getElementById('message').value = '';
+  document.getElementById('username').value = '';
+  document.getElementById('username-validation').innerHTML = '';
+  document.getElementById('create-account-btn').disabled = true;
+  
+  showStatus('Logged out successfully', 'info');
+}
+
+function resetNip46State() {
+  state.pool = null;
+  state.clientSk = null;
+  state.clientSkHex = '';
+  state.clientPubkeyHex = '';
+  state.remoteSignerPubkeyHex = '';
+  state.connectAcked = false;
+  state.clientSecret = '';
+  state.bunkerRelays = [];
+  // Reset negotiated cipher back to nip04 default
+  state.nip46Cipher = 'nip04';
+  waiters.clear();
+}
+
+function showStatus(message, type = 'info') {
+  const container = document.getElementById('status-container');
+  const statusDiv = document.createElement('div');
+  statusDiv.className = `status-msg ${type}`;
+  
+  if (type === 'info' && message.includes('...')) {
+    statusDiv.innerHTML = `<span class="loading"></span>${message}`;
+  } else {
+    statusDiv.textContent = message;
+  }
+  
+  container.innerHTML = '';
+  container.appendChild(statusDiv);
+  
+  // Auto-hide after 5 seconds for success/error
+  if (type === 'success' || type === 'error') {
+    setTimeout(() => {
+      statusDiv.style.transition = 'opacity 0.3s';
+      statusDiv.style.opacity = '0';
+      setTimeout(() => statusDiv.remove(), 300);
+    }, 5000);
+  }
+}
+
+// ============================================================================
+// UX ENHANCEMENT FUNCTIONS
+// ============================================================================
+
+// Tab Switching
+function switchAuthTab(tab) {
+  const loginTab = document.getElementById('tab-login');
+  const signupTab = document.getElementById('tab-signup');
+  const loginContent = document.getElementById('login-tab-content');
+  const signupContent = document.getElementById('signup-tab-content');
+  
+  if (tab === 'login') {
+    loginTab.classList.add('active');
+    signupTab.classList.remove('active');
+    loginContent.classList.add('active');
+    signupContent.classList.remove('active');
+    
+    // Save preference
+    if (document.getElementById('remember-method')?.checked) {
+      localStorage.setItem('preferred_auth_tab', 'login');
+    }
+  } else {
+    signupTab.classList.add('active');
+    loginTab.classList.remove('active');
+    signupContent.classList.add('active');
+    loginContent.classList.remove('active');
+    
+    // Save preference
+    if (document.getElementById('remember-method')?.checked) {
+      localStorage.setItem('preferred_auth_tab', 'signup');
+    }
+  }
+}
+
+// Toggle Advanced Options
+function toggleAdvanced() {
+  const content = document.getElementById('advanced-content');
+  const icon = document.getElementById('advanced-icon');
+  
+  if (content.classList.contains('hidden')) {
+    content.classList.remove('hidden');
+    icon.classList.add('rotated');
+  } else {
+    content.classList.add('hidden');
+    icon.classList.remove('rotated');
+  }
+}
+
+// Show Tooltips
+function showTooltip(type) {
+  const tooltips = {
+    'remote-signer': 'A remote signer securely stores your Nostr keys and signs events on your behalf. Popular options include nsec.app, Amber (Android), and custom bunkers.',
+    'username': 'Your username will be used to create a NIP-05 identifier (username@nsec.app) that makes it easy for others to find you on Nostr.'
+  };
+  
+  const message = tooltips[type] || 'Help information';
+  alert(message); // Simple alert for now, can be replaced with modal
+}
+
+// Show Extension Help
+function showExtensionHelp() {
+  const message = `To use browser extension login, you need a Nostr extension installed:
+
+Popular Extensions:
+• Alby - https://getalby.com
+• nos2x - https://github.com/fiatjaf/nos2x
+• Flamingo - https://flamingo.me
+
+After installing, refresh this page and the extension option will be available.`;
+  
+  alert(message);
+}
+
+// Load Saved Preferences
+function loadAuthPreferences() {
+  // Load preferred tab
+  const preferredTab = localStorage.getItem('preferred_auth_tab');
+  if (preferredTab) {
+    switchAuthTab(preferredTab);
+  }
+  
+  // Load preferred method
+  const preferredMethod = localStorage.getItem('preferred_auth_method');
+  if (preferredMethod === 'nip07' && window.nostr) {
+    // Auto-highlight browser extension
+    console.log('User previously used NIP-07');
+  }
+}
+
+// Save Auth Method Preference
+function saveAuthMethodPreference(method) {
+  if (document.getElementById('remember-method')?.checked) {
+    localStorage.setItem('preferred_auth_method', method);
+    console.log(`Saved preference: ${method}`);
+  }
+}
+
+// Enhanced Status Messages with Actions
+function showStatusWithAction(message, type = 'info', actionText = null, actionCallback = null) {
+  const container = document.getElementById('status-container');
+  const statusDiv = document.createElement('div');
+  statusDiv.className = `status-msg ${type}`;
+  
+  let html = message;
+  
+  if (type === 'info' && message.includes('...')) {
+    html = `<span class="loading"></span>${message}`;
+  }
+  
+  if (actionText && actionCallback) {
+    html += ` <button onclick="${actionCallback}" style="margin-left: 1rem; padding: 0.25rem 0.75rem; font-size: 0.85rem;">
+      ${actionText}
+    </button>`;
+  }
+  
+  statusDiv.innerHTML = html;
+  container.appendChild(statusDiv);
+  
+  // Auto-remove after delay (except for errors with actions)
+  if (type !== 'error' || !actionText) {
+    setTimeout(() => statusDiv.remove(), type === 'error' ? 8000 : 5000);
+  }
+}
+
+// Update Username Preview
+function updateUsernamePreview() {
+  const username = document.getElementById('username').value;
+  const preview = document.getElementById('username-preview');
+  if (preview) {
+    preview.textContent = username ? `${username}@nsec.app` : 'username@nsec.app';
+  }
+}
+
+// Enhanced Validate Username with Preview
+const originalValidateUsername = validateUsername;
+validateUsername = function(username) {
+  updateUsernamePreview();
+  return originalValidateUsername(username);
+};
+
+function openPopup(url, title, w = 500, h = 700) {
+  let x = 0, y = 0;
+  try {
+    const topWin = window.top || window;
+    const ow = topWin.outerWidth || window.outerWidth || screen.width;
+    const oh = topWin.outerHeight || window.outerHeight || screen.height;
+    const sx = (typeof topWin.screenX === 'number' ? topWin.screenX : window.screenX) || 0;
+    const sy = (typeof topWin.screenY === 'number' ? topWin.screenY : window.screenY) || 0;
+    x = Math.max(0, Math.floor(ow / 2 + sx - w / 2));
+    y = Math.max(0, Math.floor(oh / 2 + sy - h / 2));
+  } catch (_) {
+    try {
+      x = Math.max(0, Math.floor((window.outerWidth || screen.width) / 2 + (window.screenX || 0) - w / 2));
+      y = Math.max(0, Math.floor((window.outerHeight || screen.height) / 2 + (window.screenY || 0) - h / 2));
+    } catch (_) {}
+  }
+  const features = `width=${w},height=${h},left=${x},top=${y},noopener,noreferrer`;
+  const win = window.open(url, title, features);
+  if (!win || win.closed || typeof win.closed === 'undefined') {
+    try { console.warn('Popup blocked. Opening in same tab:', url); } catch (_) {}
+    try { window.location.href = url; } catch (_) {}
+  }
+  return win;
+}
+
+function toHex(u8) {
+  if (NT.utils && NT.utils.bytesToHex) {
+    return NT.utils.bytesToHex(u8);
+  }
+  return Array.from(u8).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+</script>
+
+    </section>
+</div>
+
+      </div>
+
+      <div id="footer" class="page__footer">
+        <footer>
+          <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+          <div class="page__footer-follow">
+
+  <ul class="socials">
+
+    <li></li>
+
+    
+    
+    <li class="socials__item">
+      <a href="https://nostr4.social" rel="noopener noreferrer nofollow" target="_blank" class="socials__item__link" title="Website">
+        <i class="fa fa-globe footer-icon" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+    
+    
+    <li class="socials__item">
+      <a href="https://primal.net/p/nprofile1qqsd7ele5ljpzft5tjl84naae5pkj9uqcepa77adwr6ayyy0948uyqqh59wgx" rel="noopener noreferrer nofollow" target="_blank" class="socials__item__link" title="Nostr">
+        <i class="fa fa-nostr footer-icon" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+    
+
+    <li class="socials__item">
+      <a href="/imprint" rel="noopener noreferrer nofollow" target="_blank" class="socials__item__link" title="Imprint">
+        <i class="fas fa-gavel footer-icon" aria-hidden="true"></i>
+      </a>
+    </li>
+
+  </ul>
+
+  </div>
+
+  <div class="page__footer-copyright">&copy; 2025 Nostr4.  Created by <a rel="noopener noreferrer nofollow" target="_blank"href="https://primal.net/p/nprofile1qqsd7ele5ljpzft5tjl84naae5pkj9uqcepa77adwr6ayyy0948uyqqh59wgx">ManiMe</a></div>
+
+        </footer>
+      </div>
+
+    
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+  
+    <script src="/assets/js/hero-snap-scroll.js"></script>
+  
+    <script src="/assets/js/nostrtools.js"></script>
+  
+
+
+
+
+  </body>
+</html>

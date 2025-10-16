@@ -1,0 +1,222 @@
+---
+layout: page
+title: Nostr Demo
+permalink: /nostr-demo/
+---
+
+<style>
+  .nostr-demo {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+  
+  .demo-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .demo-section h3 {
+    margin-top: 0;
+    color: #7b16ff;
+  }
+  
+  #connection-status {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  #connection-status.connected {
+    background: #4caf50;
+    color: white;
+  }
+  
+  #connection-status.disconnected {
+    background: #f44336;
+    color: white;
+  }
+  
+  #notes-feed {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 1rem;
+  }
+  
+  .note-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #7b16ff;
+    border-radius: 4px;
+  }
+  
+  .note-content {
+    margin-bottom: 0.5rem;
+  }
+  
+  .note-meta {
+    font-size: 0.85rem;
+    color: #999;
+  }
+  
+  button {
+    padding: 0.75rem 1.5rem;
+    background: #7b16ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  button:hover {
+    background: #6a13e0;
+  }
+  
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+</style>
+
+<div class="nostr-demo">
+  <h1>Nostr Tools Integration Demo</h1>
+  
+  <div class="demo-section">
+    <h3>Connection Status</h3>
+    <div id="connection-status" class="disconnected">Disconnected</div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Subscribe to Recent Notes</h3>
+    <p>Click the button below to subscribe to recent text notes from Nostr:</p>
+    <button id="subscribe-btn" onclick="subscribeToNotes()">Subscribe to Notes</button>
+    <button id="stop-btn" onclick="stopSubscription()" disabled>Stop Subscription</button>
+    <div id="notes-feed"></div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Fetch User Profile</h3>
+    <p>Enter a Nostr public key (hex format) to fetch a user profile:</p>
+    <input type="text" id="pubkey-input" placeholder="Enter public key (hex)">
+    <button onclick="fetchProfile()">Fetch Profile</button>
+    <div id="profile-result"></div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Console Output</h3>
+    <p>Check your browser's developer console (F12) for detailed nostr-tools logs and events.</p>
+  </div>
+</div>
+
+<script>
+  let currentSubscription = null;
+  
+  // Update connection status when nostr-tools is ready
+  setTimeout(() => {
+    const pool = window.NostrIntegration?.getPool();
+    if (pool) {
+      document.getElementById('connection-status').textContent = 'Connected';
+      document.getElementById('connection-status').className = 'connected';
+    }
+  }, 1000);
+  
+  // Subscribe to recent notes
+  function subscribeToNotes() {
+    const feedContainer = document.getElementById('notes-feed');
+    feedContainer.innerHTML = '<p>Loading notes...</p>';
+    
+    const filter = {
+      kinds: [1], // Text notes
+      limit: 20
+    };
+    
+    currentSubscription = window.NostrIntegration.subscribeToEvents(filter, (event) => {
+      // Clear loading message
+      if (feedContainer.querySelector('p')?.textContent === 'Loading notes...') {
+        feedContainer.innerHTML = '';
+      }
+      
+      // Create note element
+      const noteDiv = document.createElement('div');
+      noteDiv.className = 'note-item';
+      
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'note-content';
+      contentDiv.textContent = event.content;
+      
+      const metaDiv = document.createElement('div');
+      metaDiv.className = 'note-meta';
+      const date = new Date(event.created_at * 1000);
+      metaDiv.textContent = `Author: ${event.pubkey.substring(0, 16)}... | ${date.toLocaleString()}`;
+      
+      noteDiv.appendChild(contentDiv);
+      noteDiv.appendChild(metaDiv);
+      
+      // Prepend to feed (newest first)
+      feedContainer.insertBefore(noteDiv, feedContainer.firstChild);
+    });
+    
+    // Update button states
+    document.getElementById('subscribe-btn').disabled = true;
+    document.getElementById('stop-btn').disabled = false;
+    
+    console.log('Subscribed to Nostr notes');
+  }
+  
+  // Stop subscription
+  function stopSubscription() {
+    if (currentSubscription) {
+      currentSubscription.stop();
+      currentSubscription = null;
+      console.log('Subscription stopped');
+    }
+    
+    // Update button states
+    document.getElementById('subscribe-btn').disabled = false;
+    document.getElementById('stop-btn').disabled = true;
+  }
+  
+  // Fetch user profile
+  async function fetchProfile() {
+    const pubkey = document.getElementById('pubkey-input').value.trim();
+    const resultDiv = document.getElementById('profile-result');
+    
+    if (!pubkey) {
+      resultDiv.innerHTML = '<p style="color: red;">Please enter a public key</p>';
+      return;
+    }
+    
+    resultDiv.innerHTML = '<p>Loading profile...</p>';
+    
+    const profile = await window.NostrIntegration.fetchUserProfile(pubkey);
+    
+    if (profile) {
+      resultDiv.innerHTML = `
+        <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 4px;">
+          <h4>${profile.name || 'Unknown'}</h4>
+          <p><strong>Display Name:</strong> ${profile.displayName || 'N/A'}</p>
+          <p><strong>About:</strong> ${profile.about || 'N/A'}</p>
+          <p><strong>NIP-05:</strong> ${profile.nip05 || 'N/A'}</p>
+          ${profile.picture ? `<img src="${profile.picture}" alt="Profile" style="max-width: 100px; border-radius: 50%;">` : ''}
+        </div>
+      `;
+    } else {
+      resultDiv.innerHTML = '<p style="color: red;">Failed to fetch profile. Check console for errors.</p>';
+    }
+  }
+</script>

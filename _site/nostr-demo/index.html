@@ -1,0 +1,445 @@
+<!doctype html>
+<!--
+  OneFlow Jekyll Theme 1.1 by Per Starke
+  Copyright 2024 Per Starke - https://perstarke-webdev.de/
+  Free for personal and commercial use under the MIT license
+  https://opensource.org/license/mit/
+-->
+
+<!--
+  Based on Minimal Mistakes Jekyll Theme.
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose.
+  Copyright 2013-2021 Michael Rose - mademistakes.com | @mmistakes
+  Licensed under MIT.
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Nostr Demo - Nostr4</title>
+<meta name="description" content="Nostr4 Public Website">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Nostr4">
+<meta property="og:title" content="Nostr Demo">
+<meta property="og:url" content="http://localhost:4000/nostr-demo/">
+
+
+  <meta property="og:description" content="Nostr4 Public Website">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/nostr-demo/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Nostr4 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Nostr Tools Library -->
+<script src="https://unpkg.com/nostr-tools/lib/nostr.bundle.js"></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    
+
+<div class="masthead" style="opacity: 0.85 !important;  position: fixed;">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/nostr4-logo-color.png" alt="Nostr<b>4</b>"></a>
+        
+        <a class="site-title" href="/">
+          Nostr<b>4</b>
+          <span class="site-subtitle">Freedom 4 Every App</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/#nostr" >What is</a>
+            </li><li class="masthead__menu-item">
+              <a href="/#non-custodial" >the Value of Nostr?</a>
+            </li><li class="masthead__menu-item">
+              <a href="/#contact" >Contact Us</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+
+    <style>
+
+        .bg {
+          background-image: url();
+        }
+
+        .bg::after {
+           background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        
+      </style>
+
+
+    
+
+        
+
+      <div class="initial-content">
+        
+
+<div id="main" role="main">
+    <section class="page__content" itemprop="text">
+      <style>
+  .nostr-demo {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+  
+  .demo-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .demo-section h3 {
+    margin-top: 0;
+    color: #7b16ff;
+  }
+  
+  #connection-status {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  #connection-status.connected {
+    background: #4caf50;
+    color: white;
+  }
+  
+  #connection-status.disconnected {
+    background: #f44336;
+    color: white;
+  }
+  
+  #notes-feed {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 1rem;
+  }
+  
+  .note-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #7b16ff;
+    border-radius: 4px;
+  }
+  
+  .note-content {
+    margin-bottom: 0.5rem;
+  }
+  
+  .note-meta {
+    font-size: 0.85rem;
+    color: #999;
+  }
+  
+  button {
+    padding: 0.75rem 1.5rem;
+    background: #7b16ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  button:hover {
+    background: #6a13e0;
+  }
+  
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+</style>
+
+<div class="nostr-demo">
+  <h1>Nostr Tools Integration Demo</h1>
+  
+  <div class="demo-section">
+    <h3>Connection Status</h3>
+    <div id="connection-status" class="disconnected">Disconnected</div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Subscribe to Recent Notes</h3>
+    <p>Click the button below to subscribe to recent text notes from Nostr:</p>
+    <button id="subscribe-btn" onclick="subscribeToNotes()">Subscribe to Notes</button>
+    <button id="stop-btn" onclick="stopSubscription()" disabled>Stop Subscription</button>
+    <div id="notes-feed"></div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Fetch User Profile</h3>
+    <p>Enter a Nostr public key (hex format) to fetch a user profile:</p>
+    <input type="text" id="pubkey-input" placeholder="Enter public key (hex)">
+    <button onclick="fetchProfile()">Fetch Profile</button>
+    <div id="profile-result"></div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Console Output</h3>
+    <p>Check your browser's developer console (F12) for detailed nostr-tools logs and events.</p>
+  </div>
+</div>
+
+<script>
+  let currentSubscription = null;
+  
+  // Update connection status when nostr-tools is ready
+  setTimeout(() => {
+    const pool = window.NostrIntegration?.getPool();
+    if (pool) {
+      document.getElementById('connection-status').textContent = 'Connected';
+      document.getElementById('connection-status').className = 'connected';
+    }
+  }, 1000);
+  
+  // Subscribe to recent notes
+  function subscribeToNotes() {
+    const feedContainer = document.getElementById('notes-feed');
+    feedContainer.innerHTML = '<p>Loading notes...</p>';
+    
+    const filter = {
+      kinds: [1], // Text notes
+      limit: 20
+    };
+    
+    currentSubscription = window.NostrIntegration.subscribeToEvents(filter, (event) => {
+      // Clear loading message
+      if (feedContainer.querySelector('p')?.textContent === 'Loading notes...') {
+        feedContainer.innerHTML = '';
+      }
+      
+      // Create note element
+      const noteDiv = document.createElement('div');
+      noteDiv.className = 'note-item';
+      
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'note-content';
+      contentDiv.textContent = event.content;
+      
+      const metaDiv = document.createElement('div');
+      metaDiv.className = 'note-meta';
+      const date = new Date(event.created_at * 1000);
+      metaDiv.textContent = `Author: ${event.pubkey.substring(0, 16)}... | ${date.toLocaleString()}`;
+      
+      noteDiv.appendChild(contentDiv);
+      noteDiv.appendChild(metaDiv);
+      
+      // Prepend to feed (newest first)
+      feedContainer.insertBefore(noteDiv, feedContainer.firstChild);
+    });
+    
+    // Update button states
+    document.getElementById('subscribe-btn').disabled = true;
+    document.getElementById('stop-btn').disabled = false;
+    
+    console.log('Subscribed to Nostr notes');
+  }
+  
+  // Stop subscription
+  function stopSubscription() {
+    if (currentSubscription) {
+      currentSubscription.stop();
+      currentSubscription = null;
+      console.log('Subscription stopped');
+    }
+    
+    // Update button states
+    document.getElementById('subscribe-btn').disabled = false;
+    document.getElementById('stop-btn').disabled = true;
+  }
+  
+  // Fetch user profile
+  async function fetchProfile() {
+    const pubkey = document.getElementById('pubkey-input').value.trim();
+    const resultDiv = document.getElementById('profile-result');
+    
+    if (!pubkey) {
+      resultDiv.innerHTML = '<p style="color: red;">Please enter a public key</p>';
+      return;
+    }
+    
+    resultDiv.innerHTML = '<p>Loading profile...</p>';
+    
+    const profile = await window.NostrIntegration.fetchUserProfile(pubkey);
+    
+    if (profile) {
+      resultDiv.innerHTML = `
+        <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 4px;">
+          <h4>${profile.name || 'Unknown'}</h4>
+          <p><strong>Display Name:</strong> ${profile.displayName || 'N/A'}</p>
+          <p><strong>About:</strong> ${profile.about || 'N/A'}</p>
+          <p><strong>NIP-05:</strong> ${profile.nip05 || 'N/A'}</p>
+          ${profile.picture ? `<img src="${profile.picture}" alt="Profile" style="max-width: 100px; border-radius: 50%;">` : ''}
+        </div>
+      `;
+    } else {
+      resultDiv.innerHTML = '<p style="color: red;">Failed to fetch profile. Check console for errors.</p>';
+    }
+  }
+</script>
+
+    </section>
+</div>
+
+      </div>
+
+      <div id="footer" class="page__footer">
+        <footer>
+          <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+          <div class="page__footer-follow">
+
+  <ul class="socials">
+
+    <li></li>
+
+    
+    
+    <li class="socials__item">
+      <a href="https://nostr4.social" rel="noopener noreferrer nofollow" target="_blank" class="socials__item__link" title="Website">
+        <i class="fa fa-globe footer-icon" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+    
+    
+    <li class="socials__item">
+      <a href="https://primal.net/p/nprofile1qqsd7ele5ljpzft5tjl84naae5pkj9uqcepa77adwr6ayyy0948uyqqh59wgx" rel="noopener noreferrer nofollow" target="_blank" class="socials__item__link" title="Nostr">
+        <i class="fa fa-nostr footer-icon" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+    
+
+    <li class="socials__item">
+      <a href="/imprint" rel="noopener noreferrer nofollow" target="_blank" class="socials__item__link" title="Imprint">
+        <i class="fas fa-gavel footer-icon" aria-hidden="true"></i>
+      </a>
+    </li>
+
+  </ul>
+
+  </div>
+
+  <div class="page__footer-copyright">&copy; 2025 Nostr4.  Created by <a rel="noopener noreferrer nofollow" target="_blank"href="https://primal.net/p/nprofile1qqsd7ele5ljpzft5tjl84naae5pkj9uqcepa77adwr6ayyy0948uyqqh59wgx">ManiMe</a></div>
+
+        </footer>
+      </div>
+
+    
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+  
+    <script src="/assets/js/hero-snap-scroll.js"></script>
+  
+    <script src="/assets/js/nostrtools.js"></script>
+  
+
+
+
+
+  </body>
+</html>

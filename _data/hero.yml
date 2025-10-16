@@ -1,0 +1,36 @@
+main:
+  title: "Nostr is **Freedom** for Every App."
+  anchor: "nostr"
+  cards: 
+    - 
+      icon: "fa-dove"
+      label: "Freedom Tech"
+      body: "Nostr is the ONLY social protocol that offers _freedom for all apps_ to operate independently on a network of shared users, with unrestricted access to _engage directly_ with every one of them."
+    - 
+      icon: "fa-users"
+      label: "User Controlled"
+      body: "Nostr puts users in control of their own identities and data, while apps _never lose access_ either. This is an _ideal arrangement_ that minimizes risk and maximizes the value proposition for user-centered apps."
+    - 
+      icon: "fa-network-wired"
+      label: "Decentralized"
+      body: "In this digital age dominated by big tech and big government jockeying for power, Nostr is _already established_ with deep roots in the Bitcoin ethos. _Nobody owns_ the network or the protocol on which apps are built."
+    - 
+      icon: "fa-key"
+      label: "Open Protocol"
+      body: "Simply by existing as an open protocol of user-controlled keys and distributed storage for social apps, Nostr provides something precious that _every app needs_ ... if only they knew about it."
+  background_image: "/assets/images/nostr4-bg-stairs.jpg"
+
+nostr4:
+  anchor: "contact"
+  title: "We are Nostr Integration Experts"
+  content: "Nostr4 offers consultation, bespoke services, and free resources for any app to integrate more deeply with Nostr. Send me a **[DM over Nostr](https://primal.net/p/nprofile1qqsd7ele5ljpzft5tjl84naae5pkj9uqcepa77adwr6ayyy0948uyqqh59wgx)** to inquire."
+  background_image: "/assets/images/nostr4-bg-ostrich.jpg"
+  carousel: "clients.yml"
+
+
+# Additional hero sections can be added here
+# secondary:
+#   title: "Empowering the Future of Social Media"
+#   subtitle: "Join the revolution of decentralized social networking where you own your data and identity."
+#   background_image: "/assets/images/hero/secondary-bg.jpg"
+#   # ... other overrides

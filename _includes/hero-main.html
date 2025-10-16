@@ -1,0 +1,228 @@
+{% assign hero = site.data.hero[include.section] %}
+<div class="hero hero--overlay" id="{{ hero.anchor }}"
+     style="background-image: url('{{ hero.background_image | relative_url }}');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 8rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;">
+    
+    <!-- Watermark Logo -->
+    <div class="hero-main__logo" style="opacity: 0.5; z-index: 1; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+        <img src="{{ 'assets/images/nostr4-logobird-color2.png' | relative_url }}" 
+             alt="Nostr4 Logo" 
+             style="width: 450px; height: auto; max-width: 100%; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+    </div>
+    
+    <div class="wrapper" style="max-width: 1020px; margin: 0 auto; position: relative; z-index: 2;">
+        <h1 class="title" style="font-size: 2.5rem; margin-bottom: 5rem;">
+            {{ hero.title | markdownify | remove: "<p>" | remove: "</p>" }}
+        </h1>
+        
+        {% if hero.cards %}
+
+        <div class="hero-main__scroll-hint" style="text-align: center; margin-bottom: 3rem;">
+          <button class="hero-main__scroll-button" aria-label="Scroll to content">
+            <i class="fas fa-chevron-down"></i>
+          </button>
+        </div>
+        
+        <div class="hero-main__content hero-main__content-grid" id="hero-content">
+            {% for card in hero.cards %}
+            <div class="hero-main__content-item hero-main__flip-card is-visible">
+                <div class="hero-main__flip-card-inner">
+                    {% if card.icon or card.label %}
+                        <!-- Front side: Icon and Label -->
+                        <div class="hero-main__flip-card-front">
+                            <div class="hero-main__icon-wrapper">
+                                {% if card.icon %}
+                                <i class="fa fa-classic {{ card.icon }}"></i>
+                                {% endif %}
+                                {% if card.label %}
+                                <h3>{{ card.label }}</h3>
+                                {% endif %}
+                            </div>
+                            <div class="hero-main__flip-hint">
+                                <i class="fas fa-hand-pointer"></i>
+                                <span>Click to learn more</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Back side: Body text -->
+                        <div class="hero-main__flip-card-back">
+                            {% if card.body %}
+                            <div class="hero-main__card-body">
+                                <p class="lead">
+                                    {{ card.body | markdownify | remove: "<p>" | remove: "</p>" }}
+                                </p>
+                            </div>
+                            {% endif %}
+                            {% comment %} <div class="hero-main__flip-hint">
+                                <i class="fas fa-undo"></i>
+                                <span>Click to go back</span>
+                            </div> {% endcomment %}
+                        </div>
+                    {% else %}
+                        <!-- Simple text content (backward compatibility) -->
+                        <div class="hero-main__flip-card-front">
+                            <p class="lead">
+                                {{ card | markdownify | remove: "<p>" | remove: "</p>" }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+        {% endif %}
+
+        {% if hero.content %}
+        <div class="hero-content" style="margin-top: 2rem;">
+            <p class="lead">{{ hero.content | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+        </div>
+        {% endif %}
+        
+        {% if hero.buttons %}
+        <div class="hero-buttons" style="margin-top: 2rem;">
+            {% for button in hero.buttons %}
+            <a href="{{ button.url | relative_url }}" 
+               class="btn btn--large {% if forloop.first %}btn--primary{% else %}btn--light-outline{% endif %}"
+               style="margin: 0.5rem;">
+                {{ button.label }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+(function() {
+    // Prevent double initialization
+    if (window.heroMainInitialized) {
+        console.log('Hero main already initialized, skipping...');
+        return;
+    }
+    window.heroMainInitialized = true;
+    
+    // Scroll-based reveal animation
+    function revealOnScroll() {
+        const items = document.querySelectorAll('[data-scroll-reveal]');
+        
+        items.forEach(item => {
+            const itemTop = item.getBoundingClientRect().top;
+            const itemBottom = item.getBoundingClientRect().bottom;
+            const windowHeight = window.innerHeight;
+            
+            // Reveal when item is in viewport
+            if (itemTop < windowHeight * 0.9 && itemBottom > 0) {
+                item.classList.add('is-visible');
+            }
+        });
+    }
+    
+    // Flip card functionality
+    function initFlipCards() {
+        const flipCards = document.querySelectorAll('.hero-main__flip-card');
+        
+        console.log('Initializing flip cards:', flipCards.length);
+        
+        if (flipCards.length === 0) {
+            console.error('NO FLIP CARDS FOUND!');
+            return;
+        }
+        
+        flipCards.forEach((card, index) => {
+            // Check if already initialized
+            if (card.dataset.flipInitialized) {
+                console.log('Card', index, 'already initialized, skipping');
+                return;
+            }
+            card.dataset.flipInitialized = 'true';
+            
+            console.log('Setting up card', index);
+            
+            card.addEventListener('click', function(e) {
+                console.log('CLICK on card', index);
+                
+                // Prevent flipping if clicking a link
+                if (e.target.tagName === 'A') {
+                    return;
+                }
+                
+                e.stopPropagation();
+                e.preventDefault();
+                
+                // Close all other cards in the same section
+                flipCards.forEach((otherCard) => {
+                    if (otherCard !== this) {
+                        otherCard.classList.remove('is-flipped');
+                    }
+                });
+                
+                console.log('Toggling is-flipped');
+                this.classList.toggle('is-flipped');
+                console.log('is-flipped now:', this.classList.contains('is-flipped'));
+            });
+        });
+    }
+    
+    // Scroll button functionality
+    function initScrollButton() {
+        const scrollButton = document.querySelector('.hero-main__scroll-button');
+        const heroContent = document.getElementById('hero-content');
+        
+        if (scrollButton && heroContent) {
+            scrollButton.addEventListener('click', function() {
+                heroContent.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            });
+        }
+    }
+    
+    // Initialize everything
+    function init() {
+        console.log('Init called');
+        // Small delay to ensure DOM is fully rendered
+        setTimeout(function() {
+            revealOnScroll();
+            initFlipCards();
+            initScrollButton();
+        }, 100);
+    }
+    
+    // Initial check on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    
+    // Check on scroll with throttling
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                revealOnScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // Check on resize
+    window.addEventListener('resize', revealOnScroll);
+})();
+</script>
+
