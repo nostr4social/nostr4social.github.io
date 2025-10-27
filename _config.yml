@@ -13,6 +13,7 @@ locale                   : "en-US"
 title                    : "Nostr4"
 title_separator          : "-"
 subtitle                 : "Freedom 4 Every App" # Displayed in the masthead below the title, use " " for no subtitle
+description              : "Nostr4 - Freedom for Social Apps"
 url                      : "https://nostr4.social" # the base hostname & protocol for your site
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "nostr4social/nostr4social.github.io" # GitHub username/repo-name
